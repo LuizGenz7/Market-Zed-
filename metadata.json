@@ -1,0 +1,6 @@
+{
+  "name": "MarketZed",
+  "description": "Zambia-first offline-first public marketplace for products, property, services, jobs, swaps, free items, and wanted requests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

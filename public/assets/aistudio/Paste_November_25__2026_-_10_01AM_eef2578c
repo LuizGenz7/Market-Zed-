@@ -1,0 +1,1375 @@
+MARKETZED ANDROID — COMPLETE FEATURE UPGRADE, UI REDESIGN & ENGINEERING IMPLEMENTATION
+
+Product: MarketZed — Zambia Marketplace
+Brand: Tech Generative Universe (TechGU)
+Platform: Native Android — Kotlin + Jetpack Compose
+Document type: Complete implementation specification
+Purpose: Upgrade the existing MarketZed Android application without replacing its existing architecture or breaking working functionality.
+
+---
+
+1. CRITICAL IMPLEMENTATION INSTRUCTIONS
+
+Implement every approved feature and improvement in the existing MarketZed Android application.
+
+This is an enhancement of the existing application, NOT a replacement.
+
+Before changing anything:
+
+1. Inspect the complete existing Android project.
+2. Understand the existing architecture and dependencies.
+3. Inspect existing screens, ViewModels, repositories and data models.
+4. Inspect Firebase Authentication and Firestore integrations.
+5. Inspect the existing payment integration.
+6. Inspect Room database entities and synchronization mechanisms.
+7. Identify completed, partially completed and missing functionality.
+8. Reuse existing working implementations wherever possible.
+
+NON-NEGOTIABLE REQUIREMENTS:
+
+- Preserve existing working functionality.
+- Preserve existing Firebase project and integrations.
+- Preserve existing Firestore schemas wherever possible.
+- Do not introduce incompatible authentication systems.
+- Use Kotlin and Jetpack Compose.
+- Do not introduce Flutter or Dart.
+- Maintain professional light and dark themes.
+- Prioritize performance and accessibility.
+- Do not create fake production listings.
+- Do not create fake payment confirmations.
+- Do not invent analytics.
+- Do not introduce Gemini AI in this release.
+- Do not introduce Google Sign-In.
+- Continue using Firebase email/password authentication.
+- Do not replace existing payment infrastructure with mock implementations.
+- Do not remove existing working features simply to simplify implementation.
+
+Do not rewrite the entire application when targeted improvements are sufficient.
+
+2. IMPORTANT FIREBASE CONFIGURATION AND AI SCOPE
+
+The previous Firebase AI Logic provisioning attempt failed with:
+
+"Couldn't check whether Firebase project 'marketzed' has room for a new Android app for this applet. Please try again."
+
+This must not block the implementation.
+
+The approved release explicitly excludes Gemini AI.
+
+Therefore:
+
+- Do not provision Firebase AI Logic.
+- Do not add Gemini dependencies.
+- Do not create a new Firebase project.
+- Do not change the existing Firebase project ID.
+- Do not create a duplicate Android application registration.
+- Do not replace the existing google-services.json without verifying the existing configuration.
+- Do not change authentication to Google Sign-In.
+
+Continue using the existing Firebase project and Android application registration.
+
+App Check may be implemented using the appropriate existing Firebase configuration where supported and authorized.
+
+If App Check provisioning requires project-owner access, document the exact external configuration required. Do not bypass security or block unrelated development.
+
+Verify the actual Android package name and registered SHA-1/SHA-256 fingerprints before modifying Firebase configuration.
+
+Never place service-account credentials or private secrets inside the APK.
+
+3. MARKETPLACE PRODUCT PRIORITIES
+
+MarketZed is primarily a product discovery and contact marketplace.
+
+The discovery hierarchy must be:
+
+1. Products.
+2. Rental properties.
+3. Services.
+4. Swaps.
+5. Wanted requests.
+6. Jobs.
+
+Products and rental properties are the most important marketplace categories.
+
+Jobs and Wanted requests must not displace the main shopping and rental discovery experience.
+
+PROPERTY RESTRICTIONS:
+
+MarketZed supports rental properties ONLY.
+
+Allowed:
+
+- Houses for rent.
+- Apartments for rent.
+- Rooms for rent.
+- Shops for rent.
+- Offices for rent.
+- Commercial premises for rent.
+
+Absolutely prohibited:
+
+- Land listings.
+- Plot listings.
+- Property sales.
+- Land-sale advertisements.
+
+Enforce these restrictions in:
+
+- Posting interfaces.
+- Validation.
+- Data models.
+- Repositories.
+- Firestore queries.
+- Firestore security rules.
+- Administrative moderation.
+
+Do not rely on UI restrictions alone.
+
+4. HOMEPAGE REDESIGN
+
+Create an attractive, professional and dynamic marketplace homepage.
+
+The homepage must make product discovery and rental property discovery easy.
+
+Suggested section hierarchy:
+
+1. Header and account access.
+2. Search.
+3. Location discovery.
+4. Browse categories.
+5. Main sponsored carousel.
+6. Sponsored products.
+7. Recommended products.
+8. Recently added products.
+9. Popular product categories.
+10. Rental properties.
+11. Sponsored rental properties.
+12. Swaps.
+13. Services.
+14. Wanted requests.
+15. Latest jobs.
+
+The homepage must prioritize products and rental properties.
+
+Conditional rendering:
+
+- Hide product sections when no eligible products exist.
+- Hide rental sections when no eligible rental listings exist.
+- Hide service sections when no eligible services exist.
+- Hide swap sections when no eligible swaps exist.
+- Hide wanted sections when no eligible wanted requests exist.
+- Hide job sections when no eligible jobs exist.
+- Always retain category navigation.
+
+Do not render empty section containers.
+
+If the entire marketplace has no available content, display one attractive marketplace-wide empty state.
+
+Maintain consistent spacing and avoid unnecessary scrolling.
+
+5. COMPLETE LISTING CARD REDESIGN
+
+This section is particularly important.
+
+Create separate, category-specific listing card components.
+
+Do not force products, properties, jobs, services and wanted requests into one universal card layout.
+
+Every listing card must use 100% of the available content width, subject to the screen's standard horizontal padding.
+
+Jobs and services must never appear as narrow cards in a multi-column grid.
+
+They must use a full-width, single-column layout.
+
+5.1 JOB CARDS — FULL WIDTH WITH IMAGES
+
+<IMPORTANT>All job cards must occupy 100% of the available screen content width.
+
+Every job card must support a listing image.
+
+A job card must not be restricted to a small horizontal thumbnail card or a two-column grid.
+
+</IMPORTANT>Design the job card using this visual structure:
+
+[Full-width rounded card]
+
+[Job image — attractive, responsive image area]
+
+[Employment type badge] [Verified badge where applicable] [Favourite icon]
+
+[Job title]
+
+[Employer name]
+
+[Short job description]
+
+[Salary] [Location] [Employment type]
+
+[Posting time]
+
+[View details / Contact action] [Report action]
+
+Example:
+
+Registered Accountant (ZICA)
+
+ZamAgri Supplies
+
+Manage monthly reconciliations, ZRA Smart Invoice compliance, payroll and supplier ledgers.
+
+K15,000 / month
+
+Chingola, Copperbelt
+
+Full-time | Verified
+
+View details
+
+Design requirements:
+
+- 100% available card width.
+- Single-column scrolling.
+- Image must be included.
+- Use a consistent image aspect ratio.
+- Support full-width image presentation or an appropriately sized image-and-information header.
+- Keep title and employer information readable.
+- Show employment type.
+- Show salary only when supplied.
+- Show location.
+- Show posting date.
+- Show genuine verification status.
+- Show favourite action.
+- Provide View details.
+- Provide report functionality.
+- Support missing-image fallbacks.
+- Never create fake employer verification.
+
+Job cards should visually match the MarketZed design system while remaining distinct from product cards.
+
+5.2 SERVICE CARDS — FULL WIDTH WITH IMAGES
+
+<IMPORTANT>All service cards must occupy 100% of the available screen content width.
+
+Every service card must support a service image.
+
+Services must use a full-width, single-column layout.
+
+</IMPORTANT>Use the following visual structure:
+
+[Full-width rounded card]
+
+[Service image and service information]
+
+[Service category badge] [Verified badge where applicable] [Favourite icon]
+
+[Service title]
+
+[Provider/business name]
+
+[Short service description]
+
+[Service price] [Location] [Service category]
+
+[Posting time]
+
+[View details / Contact action] [Report action]
+
+Example:
+
+24/7 Emergency Plumbing & Borehole Services
+
+FlowFix Plumbing
+
+Burst pipe repairs, geyser installation, pressure pump servicing and blocked drain clearing.
+
+From K450
+
+Solwezi (Metro & surrounds)
+
+Plumbing | Verified
+
+View details
+
+Additional example:
+
+Same-Day iPhone & Samsung Screen Repairs
+
+ZedFix Mobile Lab
+
+Original OLED/LCD screen replacements, battery swaps and charging port cleaning while you wait.
+
+From K650
+
+Kitwe
+
+Phone repair | Verified
+
+View details
+
+Design requirements:
+
+- 100% available card width.
+- Single-column layout.
+- Include service images.
+- Use attractive image presentation.
+- Allow service information to sit beside the image when appropriate.
+- Allow descriptions and additional information to occupy the full card width.
+- Keep service titles readable.
+- Show provider name.
+- Show category badge.
+- Show location.
+- Show price where available.
+- Show genuine verification.
+- Show posting time.
+- Include favourite and report actions.
+- Provide View details and contact functionality.
+- Handle missing images gracefully.
+
+Service cards must not become small, compressed or difficult to read.
+
+5.3 WANTED REQUEST CARDS — PERMANENTLY TEXT ONLY
+
+<IMPORTANT — ABSOLUTE REQUIREMENT>
+
+WANTED LISTINGS MUST NEVER DISPLAY LISTING IMAGES.
+
+This is a permanent design and product requirement.
+
+Do not add listing photographs to Wanted cards in future UI improvements.
+
+Do not display:
+
+- Listing photographs.
+- Product thumbnails.
+- Property photographs.
+- Generated images.
+- Default marketplace image placeholders.
+- Blank image containers.
+- Image-loading skeletons.
+- Image icons intended to represent missing photographs.
+
+Wanted requests are TEXT-ONLY.
+
+This restriction applies to:
+
+- Explore.
+- Homepage.
+- Wanted category.
+- Search results.
+- Saved wanted requests.
+- Wanted detail screens.
+- Shared wanted listing previews.
+- Notifications and compact listing previews.
+
+Even if a database document contains an image URL, the Wanted UI must ignore it.
+
+</IMPORTANT>Use this visual structure:
+
+[Full-width rounded text-only card]
+
+[Request title]
+
+[Request description]
+
+[Location] [Budget] [Relevant attributes]
+
+[Profile picture] [Requester name] [Verification badge]
+
+[Posting time]
+
+[Contact action] [Report action]
+
+Example:
+
+Looking for a 2-bedroom house
+
+Looking for a spacious house around Kitwe. Open to nearby areas. My budget is K6,000 per month.
+
+Kitwe | K6,000 | 2 bedrooms | House
+
+Profile picture | Chibwe A | Verified
+
+4 hours ago
+
+Contact
+
+Requirements:
+
+- Full available width.
+- Single-column layout.
+- No listing image.
+- No image placeholder.
+- No image skeleton.
+- No empty image area.
+- Clear title.
+- Readable description.
+- Location.
+- Budget where provided.
+- Relevant attributes.
+- Requester profile picture.
+- Requester name.
+- Genuine verification badge.
+- Posting time.
+- Contact action.
+- Report action.
+
+Profile photographs are permitted because they identify the requester. They are not listing photographs.
+
+The absence of a listing image must never cause a blank space or broken layout.
+
+The Wanted card must remain visually complete using text, badges, icons and profile information alone.
+
+5.4 PRODUCT CARDS
+
+Products retain an image-focused shopping experience.
+
+Display:
+
+- Product photograph.
+- Product title.
+- Price in ZMW.
+- Condition.
+- Location.
+- Seller name.
+- Genuine verification.
+- Sponsored badge where applicable.
+- Favourite action.
+- Compare action.
+- View details.
+
+Support missing photographs with a designed product fallback, not a broken image.
+
+5.5 RENTAL PROPERTY CARDS
+
+Rental property cards must support photographs.
+
+Display:
+
+- Property photographs.
+- Property title.
+- Monthly rent.
+- Location.
+- Property type.
+- Bedrooms where applicable.
+- Bathrooms where available.
+- Relevant amenities.
+- Landlord or agent.
+- Genuine verification.
+- Sponsored badge where applicable.
+- Favourite action.
+- View details.
+
+Only rental properties are permitted.
+
+6. EXPLORE SCREEN REDESIGN
+
+Redesign Explore using the provided screenshots as visual references.
+
+Retain the existing Explore navigation and category discovery experience.
+
+Requirements:
+
+- Explore heading.
+- Reset action.
+- Large search field.
+- Custom filter button.
+- Horizontally scrollable category chips.
+- Clear selected category state.
+- Consistent card spacing.
+- Smooth vertical scrolling.
+- Persistent bottom navigation.
+
+Category chips should support:
+
+- Products.
+- Property rentals.
+- Services.
+- Jobs & Opportunities.
+- Swaps.
+- Wanted.
+
+Category selection must update the actual results.
+
+Use the following card rules:
+
+Category| Full-width| Listing image
+Products| Yes| Yes
+Rental properties| Yes| Yes
+Services| Yes| Yes
+Jobs| Yes| Yes
+Swaps| Yes| According to listing type
+Wanted| Yes| NEVER
+
+The screenshots establish the preferred full-width Jobs and Services presentation.
+
+Preserve the visual direction:
+
+- White/light surfaces.
+- MarketZed orange accents.
+- Soft neutral borders.
+- Rounded cards.
+- Clear readable typography.
+- Compact information badges.
+- Accessible favourite icons.
+- Attractive View details buttons.
+
+Improve dark mode equivalents without changing the identity.
+
+7. SPONSORED MARKETPLACE SYSTEM
+
+Make sponsored listings a major and attractive part of MarketZed.
+
+Support:
+
+- Homepage sponsored banners.
+- Sponsored product carousel.
+- Sponsored products in Explore.
+- Sponsored category placements.
+- Sponsored rental properties.
+- Sponsored services.
+- Sponsored search placements.
+- Sponsored Deals discovery section.
+
+Every sponsored placement must have a clearly visible Sponsored label.
+
+Never label organic listings as sponsored.
+
+7.1 Flexible 1:3:1 carousel
+
+Implement a native Jetpack Compose carousel using a flexible layout.
+
+Visual arrangement:
+
+[Small previous card] [Large centre card] [Small next card]
+
+Use approximate flex proportions:
+
+1 : 3 : 1
+
+Requirements:
+
+- Centre card approximately three times the width of either neighbouring card.
+- Partially visible neighbouring cards.
+- Rounded corners.
+- Smooth manual horizontal swiping.
+- Consistent spacing.
+- Attractive imagery.
+- Clear title.
+- Price.
+- Sponsored label.
+- Pagination indicators.
+- Tap to open the real listing.
+- Dark and light support.
+- Image loading fallbacks.
+- Reduced-motion support.
+
+Do not introduce Flutter or Dart.
+
+Do not automatically rotate rapidly.
+
+Manual swipe must be the primary interaction.
+
+7.2 Sponsored category placements
+
+Support category-specific campaigns for:
+
+- Electronics.
+- Fashion.
+- Home and Living.
+- Property Rentals.
+- Services.
+- Swaps.
+
+Show relevant campaigns before organic results while maintaining fair rotation.
+
+Campaign eligibility must consider:
+
+- Payment confirmation.
+- Campaign status.
+- Start date.
+- End date.
+- Category relevance.
+- Listing availability.
+- Campaign placement.
+- Fair exposure.
+
+Prevent repeated unnecessary display of the same campaign.
+
+7.3 Sponsored Deals
+
+Create a dedicated Sponsored Deals section.
+
+Sponsored does not automatically mean discounted.
+
+Only display a discount badge where the original and current prices are supported by genuine data.
+
+8. PROMOTE YOUR BUSINESS
+
+Create a dedicated Promote Your Business experience.
+
+Support:
+
+- Product promotion.
+- Rental promotion.
+- Service promotion.
+- Homepage promotion.
+- Category promotion.
+- Sponsored carousel placement.
+- Banner advertising.
+
+Display:
+
+- Promotion name.
+- Description.
+- Placement.
+- Duration.
+- Price in ZMW.
+- Benefits.
+- Eligible listing.
+- Selected campaign.
+- Payment method.
+- Campaign status.
+
+Users must understand the campaign before initiating payment.
+
+8.1 Payment
+
+Continue using the existing payment provider and trusted confirmation architecture.
+
+Requirements:
+
+- Payment initiation.
+- Pending state.
+- Confirmed state.
+- Failed state.
+- Safe retry.
+- Duplicate-payment prevention.
+- Immutable payment records.
+- Campaign activation after trusted confirmation only.
+- Start and end dates.
+
+A client-side button press must NEVER activate a campaign.
+
+8.2 Promotion history
+
+Display:
+
+- Listing title.
+- Campaign type.
+- Amount paid.
+- Duration.
+- Start date.
+- End date.
+- Status.
+
+Do not display raw Firestore IDs as listing titles.
+
+8.3 Promotion analytics
+
+Provide actual recorded:
+
+- Impressions.
+- Clicks.
+- Listing visits.
+
+Never invent analytics or show fabricated numbers.
+
+Admin reporting should provide campaign management and actual campaign performance.
+
+8.4 Promotional bonuses
+
+Prepare an extensible architecture for future administrator-controlled promotional bonuses.
+
+Do not invent bonus types, discounts or free campaign entitlements without separate approval.
+
+9. PRODUCT COMPARISON
+
+Implement a complete comparison system.
+
+Allow users to compare up to THREE products simultaneously.
+
+9.1 Selection
+
+Add Compare controls to product cards and product detail screens.
+
+Allow:
+
+- Adding products.
+- Removing products.
+- Selecting up to three.
+- Viewing selection count.
+- Clearing selection.
+- Opening comparison.
+
+Prevent duplicate selections.
+
+When three products have been selected, block the fourth and explain the limit.
+
+Persist selection appropriately without leaking private data across accounts.
+
+9.2 Quick comparison bottom sheet
+
+Implement a native Compose ModalBottomSheet.
+
+Display:
+
+- Product image.
+- Title.
+- Price.
+- Condition.
+- Location.
+- Remove action.
+- Add another action where space remains.
+- Expand Comparison.
+- View Listing.
+
+Support small screens and scrolling.
+
+9.3 Full comparison screen
+
+Display:
+
+- Product image.
+- Product title.
+- Price.
+- Seller.
+- Location.
+- Condition.
+- Category.
+- Specifications.
+- Description where useful.
+- Listing date.
+- Availability.
+
+Use horizontally scrollable comparison columns on smaller devices.
+
+9.4 Show Differences
+
+Provide:
+
+- Show Differences.
+- Show All.
+
+Highlight only attributes that actually differ.
+
+Do not fabricate missing specifications.
+
+Display "Not provided" when information is unavailable.
+
+9.5 Category-specific specifications
+
+SMARTPHONES:
+
+- Brand.
+- Model.
+- RAM.
+- Storage.
+- Battery information.
+- Condition.
+
+LAPTOPS:
+
+- Brand.
+- Processor.
+- RAM.
+- Storage.
+- Screen size.
+- Condition.
+
+TELEVISIONS:
+
+- Brand.
+- Screen size.
+- Resolution.
+- Smart TV status.
+- Condition.
+
+FURNITURE:
+
+- Type.
+- Material.
+- Dimensions.
+- Condition.
+
+Make the attribute structure extensible.
+
+9.6 Comparison actions
+
+Allow:
+
+- Open listing.
+- Contact seller.
+- Share comparison.
+- Remove products.
+- Clear comparison.
+- Return to browsing.
+
+Handle deleted, expired and unavailable listings.
+
+10. MARKETPLACE DISCOVERY
+
+Implement:
+
+Recently viewed
+
+Allow users to return to previously viewed listings and clear browsing history.
+
+Recently added
+
+Sort using trusted publication timestamps.
+
+Similar products
+
+Use actual category and product attributes.
+
+Price reduced
+
+Only display genuine recorded price reductions.
+
+Saved searches
+
+Allow users to save search criteria and receive matching-listing notifications subject to preferences.
+
+Favourites
+
+Preserve existing favourite functionality and ensure account-specific synchronization.
+
+11. SELLER EXPERIENCE
+
+Support:
+
+- Personal seller profiles.
+- Business seller profiles.
+- Public storefronts.
+- Profile photographs.
+- Business descriptions.
+- Published listings.
+- Verification status.
+- Member-since information.
+- Listing management.
+- Contact actions.
+
+Storefronts should contain:
+
+1. Profile header.
+2. Seller/business name.
+3. Verification status.
+4. Description.
+5. Published listings.
+6. Relevant categories.
+7. Contact action.
+
+Only genuinely verified accounts may display verification badges.
+
+12. MAP-BASED DISCOVERY
+
+Build a foundation for geographical discovery.
+
+Support:
+
+- Town filtering.
+- District filtering.
+- Nearby discovery.
+- Map/list switching.
+- Location-based searches.
+
+Do not expose precise residential coordinates publicly without an explicitly approved reason.
+
+13. SEARCH AND FILTERS
+
+Improve search with:
+
+- Debounced typing.
+- Search suggestions.
+- Category filtering.
+- Location filtering.
+- Minimum price.
+- Maximum price.
+- Condition.
+- Category-specific attributes.
+- Clear filters.
+- Search-state restoration.
+
+Budget filtering must support:
+
+- Minimum only.
+- Maximum only.
+- Both minimum and maximum.
+
+Safely parse commas, decimals and ZMW amounts.
+
+Do not download entire Firestore collections to perform filtering locally.
+
+Use bounded queries and pagination.
+
+14. NAVIGATION
+
+Retain the approved bottom navigation:
+
+- Home.
+- Explore.
+- Post.
+- Wanted.
+- Account.
+
+Saved listings and favourites remain accessible through Account.
+
+Messaging must remain accessible through appropriate listing and account actions.
+
+Do not introduce an additional bottom navigation tab without separate approval.
+
+15. DESIGN SYSTEM AND ACCESSIBILITY
+
+Create a professional, original MarketZed design system.
+
+Support young users, older users, first-time smartphone users, individual sellers and businesses.
+
+Use:
+
+- MarketZed orange branding.
+- Professional light mode.
+- Professional dark mode.
+- Clear typography.
+- Comfortable text sizes.
+- Accessible contrast.
+- Consistent spacing.
+- Consistent rounded corners.
+- Restrained shadows.
+- Clear visual hierarchy.
+- Recognizable Lucide icons.
+- Comfortable touch targets.
+- Smooth scrolling.
+
+Avoid excessive decoration and animation.
+
+The white brand icon on orange must remain consistent in both themes.
+
+Create reusable Compose components for:
+
+- Product cards.
+- Rental cards.
+- Job cards.
+- Service cards.
+- Wanted cards.
+- Sponsored cards.
+- Carousels.
+- Search.
+- Filters.
+- Buttons.
+- Inputs.
+- Bottom sheets.
+- Dialogs.
+- Empty states.
+- Skeletons.
+- Avatars.
+- Verification badges.
+
+Important: WantedCard must be structurally independent of image-based listing cards. It must not inherit an image container from a universal card component.
+
+16. PAYMENT UI
+
+Redesign payment screens using the MarketZed design system.
+
+Include:
+
+- Clear amount.
+- Payment purpose.
+- Selected promotion.
+- Duration.
+- Payment method.
+- Payer details.
+- Confirmation before initiation.
+- Waiting state.
+- Success state.
+- Failure state.
+- Retry.
+- Payment history.
+
+Never show payment success without trusted backend confirmation.
+
+Maintain immutable completed-payment records.
+
+17. PERFORMANCE AND PARALLEL LOADING
+
+Performance is a core requirement.
+
+The homepage must not wait for all sections before displaying content.
+
+Use independent concurrent loading.
+
+Suggested loading groups:
+
+- Categories.
+- Sponsored campaigns.
+- Products.
+- Rental properties.
+- Swaps.
+- Services.
+- Wanted requests.
+- Jobs.
+
+Each section must render when its own data becomes available.
+
+Maintain the intended homepage order regardless of request completion order.
+
+Use:
+
+- Kotlin coroutines.
+- Structured concurrency.
+- StateFlow.
+- ViewModels.
+- Jetpack Compose.
+- Room.
+- DataStore.
+- Firestore pagination.
+- Bounded queries.
+- Stable LazyColumn and LazyRow keys.
+- Image caching.
+- Background refresh.
+- Request cancellation.
+- Query deduplication.
+
+Show valid cached content immediately.
+
+Refresh stale content without replacing the whole screen with a loading spinner.
+
+Use skeletons matching actual listing layouts.
+
+IMPORTANT SKELETON RULES:
+
+- Wanted skeletons must never contain image placeholders.
+- Job skeletons must reflect job image layouts.
+- Service skeletons must reflect service image layouts.
+- Product skeletons must reflect product layouts.
+- Property skeletons must reflect property layouts.
+
+Avoid unnecessary Firestore reads and expensive recomposition.
+
+Test low-end and mid-range Android devices.
+
+18. OFFLINE EXPERIENCE
+
+Preserve and improve existing Room synchronization.
+
+Requirements:
+
+- Cached listing browsing.
+- Cached categories.
+- Cached seller information where appropriate.
+- Recently viewed listings.
+- Saved comparison selection.
+- Safe offline states.
+- Background synchronization.
+- Conflict handling.
+- Request deduplication.
+
+Do not allow offline data to falsely indicate successful payments or campaign activation.
+
+Separate cache data by account where appropriate.
+
+Prevent cross-account private cache leakage.
+
+19. NOTIFICATIONS
+
+Preserve and improve notifications.
+
+Support:
+
+- Listing updates.
+- Wanted request updates.
+- Promotion status.
+- Promotion expiry reminders.
+- Listing expiry reminders.
+- Saved-search matches.
+- Relevant account notifications.
+
+Use Firebase Cloud Messaging where appropriate.
+
+Use WorkManager for deferrable scheduled reminders.
+
+Provide notification preferences and opt-out controls.
+
+Do not send promotional notifications without appropriate consent.
+
+20. AUTHENTICATION
+
+Use the existing Firebase email/password authentication system.
+
+Support:
+
+- Registration.
+- Login.
+- Password reset.
+- Secure session persistence.
+- Email verification where required.
+- Account linking where supported.
+- Secure role enforcement.
+
+Do not introduce Google Sign-In.
+
+Do not create duplicate authentication architecture.
+
+21. AI SCOPE
+
+Gemini AI is explicitly excluded from this release.
+
+Do not implement:
+
+- Gemini assistant.
+- Gemini recommendations.
+- Gemini-generated descriptions.
+- Gemini-powered notifications.
+- Firebase AI Logic dependencies.
+
+Do not waste implementation time attempting AI Logic provisioning.
+
+Keep future architecture extensible without introducing unnecessary AI dependencies now.
+
+22. ADMINISTRATION AND MODERATION
+
+Support:
+
+- Sponsored campaign management.
+- Banner management.
+- Promotion plans.
+- Campaign scheduling.
+- Campaign approval.
+- Payment verification.
+- Campaign activation and expiry.
+- Listing moderation.
+- Verification management.
+- Reported listings.
+- Seller management.
+- Promotional bonus configuration subject to approved business rules.
+
+Enforce administrator permissions securely.
+
+Never rely on client-side role hiding alone.
+
+23. SECURITY AND DATA INTEGRITY
+
+Preserve the existing Firebase architecture.
+
+Requirements:
+
+- Firestore Security Rules.
+- Trusted payment verification.
+- Secure authentication.
+- Private user data.
+- Safe account-specific caching.
+- Input validation.
+- Bounded public queries.
+- Rate limiting where supported.
+- Duplicate campaign prevention.
+- Accurate campaign status.
+- Accurate listing availability.
+- No embedded private API secrets.
+
+Enforce rental-only property restrictions at database and server validation levels.
+
+Enforce the Wanted no-image requirement at the presentation layer, regardless of stored image data.
+
+Do not introduce fake production listings or demo records into genuine marketplace data.
+
+24. TESTING AND ACCEPTANCE
+
+The implementation is not complete until these requirements have been tested.
+
+HOMEPAGE
+
+- [ ] Marketplace-first homepage.
+- [ ] Products receive highest discovery priority.
+- [ ] Rental properties receive high priority.
+- [ ] Services and swaps have appropriate visibility.
+- [ ] Jobs remain secondary.
+- [ ] Independent parallel loading.
+- [ ] Intelligent empty states.
+- [ ] No unnecessary blank sections.
+
+EXPLORE
+
+- [ ] Full-width product cards.
+- [ ] Full-width property cards.
+- [ ] Full-width job cards.
+- [ ] Full-width service cards.
+- [ ] Full-width Wanted cards.
+- [ ] Correct category selection.
+- [ ] Correct filtering.
+- [ ] Screenshot-inspired layout.
+- [ ] Smooth scrolling.
+
+WANTED
+
+- [ ] No listing images.
+- [ ] No listing thumbnails.
+- [ ] No image placeholders.
+- [ ] No image skeletons.
+- [ ] No blank image containers.
+- [ ] No images on Wanted detail screens.
+- [ ] No images in Wanted search previews.
+- [ ] Profile photographs remain permitted.
+- [ ] Text-only layout remains attractive.
+
+JOBS
+
+- [ ] Full 100% available width.
+- [ ] Single-column layout.
+- [ ] Job image supported.
+- [ ] Employer information.
+- [ ] Employment type.
+- [ ] Salary where provided.
+- [ ] Location.
+- [ ] Genuine verification.
+- [ ] Favourite.
+- [ ] Contact and report.
+- [ ] Responsive design.
+
+SERVICES
+
+- [ ] Full 100% available width.
+- [ ] Single-column layout.
+- [ ] Service image supported.
+- [ ] Provider information.
+- [ ] Service category.
+- [ ] Price where provided.
+- [ ] Location.
+- [ ] Genuine verification.
+- [ ] Favourite.
+- [ ] Contact and report.
+- [ ] Responsive design.
+
+SPONSORED
+
+- [ ] Homepage banners.
+- [ ] Flexible 1:3:1 carousel.
+- [ ] Sponsored Explore placements.
+- [ ] Category-specific placements.
+- [ ] Sponsored rentals.
+- [ ] Sponsored services.
+- [ ] Sponsored Deals.
+- [ ] Accurate Sponsored labels.
+- [ ] Trusted payment confirmation.
+- [ ] Scheduling and expiry.
+- [ ] Fair rotation.
+- [ ] Actual analytics.
+- [ ] Promotion history.
+
+COMPARISON
+
+- [ ] Up to three products.
+- [ ] Fourth product prevented.
+- [ ] Remove selection.
+- [ ] Quick bottom sheet.
+- [ ] Full comparison.
+- [ ] Horizontal scrolling.
+- [ ] Show Differences.
+- [ ] Show All.
+- [ ] Missing specifications handled.
+- [ ] Open original listings.
+- [ ] Share comparison.
+- [ ] Deleted listings handled.
+
+SELLER EXPERIENCE
+
+- [ ] Personal profiles.
+- [ ] Business storefronts.
+- [ ] Published listings.
+- [ ] Verification status.
+- [ ] Contact actions.
+
+PERFORMANCE
+
+- [ ] Cache-first loading.
+- [ ] Independent parallel fetching.
+- [ ] No unnecessary full-screen loading.
+- [ ] Efficient Firestore queries.
+- [ ] Stable scrolling.
+- [ ] Image caching.
+- [ ] No duplicate queries.
+- [ ] Offline browsing.
+- [ ] No unnecessary recomposition.
+- [ ] No cross-account cache leakage.
+
+DESIGN
+
+- [ ] Consistent light mode.
+- [ ] Consistent dark mode.
+- [ ] Accessible typography.
+- [ ] Accessible touch targets.
+- [ ] Consistent headers.
+- [ ] Consistent card layouts.
+- [ ] Responsive bottom sheets.
+- [ ] Professional MarketZed identity.
+
+SECURITY
+
+- [ ] No client-side payment success.
+- [ ] No unauthorized admin access.
+- [ ] No private cache leakage.
+- [ ] No exposed secrets.
+- [ ] Rental-only restrictions enforced.
+- [ ] Trusted campaign activation.
+- [ ] Existing authentication preserved.
+
+25. REQUIRED DELIVERY
+
+Deliver:
+
+1. Updated complete Android source project.
+2. Successful clean release build.
+3. Installable APK.
+4. AAB where requested.
+5. Updated dependency documentation.
+6. Firestore rules and index changes.
+7. Database migration notes.
+8. Payment integration changes.
+9. Sponsored campaign implementation notes.
+10. Product comparison implementation notes.
+11. Testing report.
+12. Screenshots of updated application.
+13. Changed files and modules.
+14. Known limitations.
+15. External configuration still required.
+
+26. FINAL ENGINEERING INSTRUCTIONS
+
+Do not sacrifice existing functionality to introduce new features.
+
+Do not replace working integrations with mocks.
+
+Do not claim production readiness based only on a successful compilation.
+
+Test actual:
+
+- Authentication.
+- Firestore queries.
+- Payment confirmation.
+- Campaign activation.
+- Product comparison.
+- Offline browsing.
+- Navigation.
+- Accessibility.
+- Image loading.
+- Wanted image suppression.
+- Full-width job and service layouts.
+- Dark and light themes.
+
+If implementation exceeds the available execution quota, save a clear checkpoint containing completed files, remaining work, build status and unresolved issues.
+
+Do not claim unfinished features are complete.
+
+The final application must be fast, attractive, reliable, accessible and easy to use for people of all ages.
+
+CENTRAL PRODUCT VISION
+
+MAKE MARKETZED THE MOST ENJOYABLE AND ACCESSIBLE PLACE TO DISCOVER, COMPARE, PROMOTE AND FIND PRODUCTS AND RENTAL PROPERTIES IN ZAMBIA.
+
+FINAL UI RULE — NEVER VIOLATE:
+
+JOBS = FULL-WIDTH + IMAGES.
+
+SERVICES = FULL-WIDTH + IMAGES.
+
+WANTED = FULL-WIDTH + TEXT ONLY, ALWAYS AND EVERYWHERE.
+
+PRODUCTS AND RENTAL PROPERTIES = IMAGE-FOCUSED MARKETPLACE CARDS.

@@ -1,0 +1,1338 @@
+MARKETZED ANDROID — ADDITIONAL FEATURES, UI IMPROVEMENTS & MARKETPLACE ENHANCEMENTS
+
+Product: MarketZed — Zambia Marketplace
+Brand: Tech Generative Universe (TechGU)
+Platform: Native Android — Kotlin + Jetpack Compose
+Purpose: Extend the existing MarketZed application with the following features and improvements.
+
+1. IMPLEMENTATION INSTRUCTIONS
+
+Implement all the following improvements in the existing MarketZed application.
+
+This is an extension of the previous complete implementation specification.
+
+NON-NEGOTIABLE REQUIREMENTS:
+
+- Preserve existing working functionality.
+- Inspect the existing implementation before making changes.
+- Continue using Kotlin and Jetpack Compose.
+- Preserve existing Firebase Authentication.
+- Preserve existing Firestore architecture.
+- Preserve the existing payment provider.
+- Maintain professional light and dark themes.
+- Maintain the approved MarketZed orange branding.
+- Prioritize simplicity, performance and accessibility.
+- Do not introduce Gemini AI.
+- Do not introduce Google Sign-In.
+- Do not replace working integrations with mock implementations.
+
+2. COMPLETE NOTIFICATIONS UI REDESIGN
+
+Create a beautiful, modern and easy-to-understand Notifications screen.
+
+The current plain notification list should be replaced with a structured notification experience.
+
+Every notification should have:
+
+[Notification icon] [Notification information]
+
+The notification information should include:
+
+- Notification title.
+- Short description.
+- Date or time.
+- Read/unread status.
+- Relevant action where applicable.
+
+Example notification designs:
+
+Wanted request
+
+[Handshake icon]
+
+Wanted Request Published
+
+Your wanted request has been successfully published and is now visible to other users.
+
+5 minutes ago
+
+Promotion activated
+
+[Campaign icon]
+
+Promotion Activated
+
+Your sponsored listing is now active and being displayed to eligible marketplace visitors.
+
+Today
+
+Account verification
+
+[Shield icon]
+
+Verify Your Account
+
+Complete account verification to unlock additional marketplace features.
+
+Verify now
+
+Payment confirmation
+
+[Payment icon]
+
+Payment Confirmed
+
+Your K30 account verification payment has been confirmed.
+
+Today
+
+Listing update
+
+[Listing icon]
+
+Listing Updated
+
+Your listing has been successfully updated.
+
+Today
+
+2.1 Notification visual design
+
+Requirements:
+
+- Attractive notification cards.
+- Rounded corners.
+- Clear notification icons.
+- Consistent icon backgrounds.
+- Read and unread visual states.
+- Comfortable spacing.
+- Clear titles.
+- Short descriptions.
+- Relative timestamps.
+- Support dark and light modes.
+- Smooth scrolling.
+- Accessible touch targets.
+
+Unread notifications should be visually distinguishable without overwhelming the interface.
+
+Use consistent icon semantics.
+
+Examples:
+
+- Wanted: handshake.
+- Payment: wallet or credit-card icon.
+- Verification: shield-check.
+- Promotion: megaphone.
+- Listing: package.
+- Account: user.
+- Security: shield.
+- General updates: bell.
+
+2.2 Notification interactions
+
+Support:
+
+- Open notification.
+- Mark as read.
+- Mark all as read.
+- Delete notification where supported.
+- Navigate to relevant listing.
+- Navigate to payment details.
+- Navigate to account verification.
+- Navigate to promotion history.
+
+Prevent duplicate notification records.
+
+Use the existing notification infrastructure where possible.
+
+Do not generate fake payment or campaign notifications.
+
+3. COMPLETE LISTING EDITING
+
+Improve the My Listings experience.
+
+Users must be able to edit their published listings completely.
+
+Do not restrict editing to only the title or description.
+
+Implement a polished native Compose ModalBottomSheet for listing editing.
+
+3.1 Edit action
+
+Each listing in My Listings must have an accessible Edit action.
+
+When tapped:
+
+- Open an editable bottom sheet.
+- Load the existing listing information.
+- Prepopulate all editable fields.
+- Allow users to change information.
+- Validate input.
+- Save changes securely.
+- Show saving progress.
+- Show success or failure feedback.
+
+3.2 Complete editable fields
+
+Support the appropriate fields for each listing category.
+
+Products
+
+- Product title.
+- Description.
+- Category.
+- Subcategory.
+- Price.
+- Condition.
+- Location.
+- Town.
+- District.
+- Product photographs.
+- Product specifications.
+- Availability.
+
+Rental properties
+
+- Property title.
+- Description.
+- Monthly rent.
+- Property type.
+- Bedrooms.
+- Bathrooms.
+- Amenities.
+- Location.
+- Town.
+- District.
+- Photographs.
+- Availability.
+
+Only rental properties are permitted.
+
+Do not allow property sales or land listings.
+
+Services
+
+- Service title.
+- Description.
+- Service category.
+- Price.
+- Location.
+- Service photographs.
+- Availability.
+- Relevant service attributes.
+
+Jobs
+
+- Job title.
+- Employer name.
+- Description.
+- Employment type.
+- Salary.
+- Location.
+- Job image.
+- Application/contact details.
+- Availability.
+
+Wanted requests
+
+- Request title.
+- Description.
+- Category.
+- Budget.
+- Location.
+- Relevant request attributes.
+- Contact preferences.
+
+IMPORTANT:
+
+Wanted listings must remain text-only.
+
+Editing a Wanted request must never introduce listing photographs or image upload controls.
+
+3.3 Image editing
+
+For image-based categories:
+
+- Add photographs.
+- Replace photographs.
+- Remove photographs.
+- Reorder photographs where supported.
+- Preview photographs.
+- Validate image size and format.
+- Show image upload progress.
+
+Wanted requests must not display image controls.
+
+3.4 Bottom sheet design
+
+The editing bottom sheet should:
+
+- Support vertical scrolling.
+- Fit smaller Android screens.
+- Use custom, accessible form controls.
+- Have a clear heading.
+- Have a close action.
+- Include Save Changes.
+- Preserve unsaved changes when appropriate.
+- Warn before discarding changes.
+- Prevent accidental duplicate submissions.
+
+For long forms, use clearly separated sections.
+
+Example:
+
+EDIT LISTING
+
+Basic information
+
+Title
+Description
+Category
+
+Pricing
+
+Price
+Condition
+
+Location
+
+Town
+District
+
+Images
+
+Upload / Replace / Remove
+
+[Save Changes]
+
+The fields must change according to listing category.
+
+3.5 Security
+
+Only the listing owner or an authorized administrator may edit a listing.
+
+Enforce permissions through trusted backend validation and Firestore Security Rules.
+
+Do not trust client-side ownership checks alone.
+
+4. BEAUTIFUL PAYMENT UI
+
+Redesign the payment experience throughout MarketZed.
+
+Payment screens must be professional, simple and understandable.
+
+The amount must be one of the most visually prominent elements.
+
+Example:
+
+<large payment amount>K30
+
+Account Verification
+
+One-time verification payment
+
+Continue to payment
+
+Use the same visual approach for other payment types.
+
+4.1 Payment screen structure
+
+Display:
+
+1. Back navigation.
+2. Payment purpose.
+3. Large amount in ZMW.
+4. Short explanation.
+5. Payment method.
+6. Required payer information.
+7. Payment instructions.
+8. Confirmation action.
+9. Security/reassurance information.
+
+Example:
+
+ACCOUNT VERIFICATION
+
+K30
+
+One-time account verification fee.
+
+Verify your account to unlock additional posting privileges.
+
+Payment method
+
+Mobile Money
+
+Mobile number
+
+[Enter mobile number]
+
+[Continue to Payment]
+
+4.2 Large amount presentation
+
+Use large, clear typography.
+
+Examples:
+
+K30
+
+K50
+
+K100
+
+Amounts must always come from the actual configured payment plan.
+
+Do not hardcode example prices as universal payment amounts.
+
+Support:
+
+- ZMW currency formatting.
+- Different payment amounts.
+- Promotion payments.
+- Verification payments.
+- Other approved marketplace fees.
+
+4.3 Payment states
+
+Create polished screens or dialogs for:
+
+Pending
+
+Your payment is being processed.
+
+Successful
+
+Payment confirmed.
+
+Your account verification is now active.
+
+Failed
+
+We could not confirm your payment.
+
+Please try again or contact support.
+
+Cancelled
+
+Payment was cancelled.
+
+Processing
+
+Please wait while we confirm your payment.
+
+Never activate verification, promotions or paid features merely because the user tapped a button.
+
+Only trusted payment confirmation may activate a paid entitlement.
+
+Prevent duplicate payment processing.
+
+Keep immutable payment records.
+
+5. ACCOUNT PROFILE — PROMINENT VERIFY ACCOUNT CTA
+
+Redesign the Account profile header.
+
+Immediately after the user's profile name, email and basic account information, display a large, prominent Verify Account call-to-action.
+
+Example:
+
+[Profile photograph]
+
+Chibwe A
+chibwe@example.com
+
+[VERIFY ACCOUNT]
+
+The button should be immediately visible without requiring users to scroll through the rest of the profile.
+
+5.1 Button design
+
+Use:
+
+- MarketZed orange background.
+- White shield-check icon.
+- Clear Verify Account text.
+- Large comfortable touch target.
+- Rounded corners.
+- Full available content width where appropriate.
+
+It should stand out from ordinary profile actions.
+
+5.2 Verification states
+
+Not verified
+
+Show:
+
+Verify Account
+
+Description:
+
+Complete account verification to unlock additional marketplace privileges.
+
+Pending
+
+Show:
+
+Verification Pending
+
+Explain that payment or verification confirmation is being processed.
+
+Verified
+
+Show:
+
+Verified Account
+
+Use an appropriate shield-check indicator.
+
+Failed
+
+Show:
+
+Verification Required
+
+Provide an appropriate retry or support action.
+
+5.3 Placement
+
+Profile structure:
+
+1. Profile picture.
+2. User name.
+3. Email address.
+4. Basic account information.
+5. Prominent Verify Account CTA.
+6. Account settings.
+7. My Listings.
+8. Saved Listings.
+9. Promotion History.
+10. Notifications.
+11. Other account actions.
+
+Do not bury verification inside settings.
+
+5.4 Verification security
+
+Verification status must come from trusted account data.
+
+Do not allow users to mark themselves verified.
+
+A successful K30 payment must be confirmed by the existing trusted payment architecture before verification is activated.
+
+6. REMOVE MAP FUNCTIONALITY COMPLETELY
+
+Remove map-based discovery from MarketZed.
+
+The application must use listing-based discovery instead.
+
+Remove:
+
+- Map screen.
+- Map/list toggle.
+- Map previews.
+- Map-based discovery.
+- Map markers.
+- Map-specific navigation.
+- Unnecessary map dependencies.
+- Map-related UI components.
+
+Replace geographical discovery with:
+
+- Town filtering.
+- District filtering.
+- Province filtering where supported.
+- Location information on listing cards.
+- Location information on detail screens.
+- Nearby-area text filters where supported.
+
+Example:
+
+Kitwe
+Copperbelt
+
+Chingola
+Copperbelt
+
+Lusaka
+Lusaka Province
+
+Users must be able to find listings using simple location filters.
+
+Do not expose precise residential coordinates publicly.
+
+Remove unused map dependencies only after confirming they are not required elsewhere.
+
+7. INTELLIGENT EMPTY STATES
+
+Create a consistent, attractive empty-state system throughout MarketZed.
+
+The application must correctly handle zero listings.
+
+IMPORTANT:
+
+A count of zero means no available listings.
+
+Do not use incorrect negative listing counts or assume that an empty query is an error.
+
+7.1 Homepage conditional sections
+
+Each homepage section must render only when it contains eligible content.
+
+Examples:
+
+- No products: hide product listing sections.
+- No rentals: hide rental sections.
+- No services: hide services.
+- No jobs: hide jobs.
+- No swaps: hide swaps.
+- No Wanted requests: hide Wanted sections.
+- No sponsored listings: hide sponsored listing sections.
+
+Category navigation must always remain accessible.
+
+Do not show empty cards for individual sections.
+
+Do not display large blank areas.
+
+7.2 When every homepage section is empty
+
+If every content section has zero eligible listings, display ONE attractive marketplace-wide empty state.
+
+Do not show a separate empty-state card for every category.
+
+Use an encouraging, friendly message.
+
+Example:
+
+YOUR MARKETPLACE STARTS HERE
+
+Nothing has been listed just yet.
+
+Be the first to share something with Zambia.
+
+Whether you have a product to sell, a property to rent, a service to offer or a skill to share, MarketZed is ready for you.
+
+[Post Your First Listing]
+
+The message should feel welcoming, not technical.
+
+7.3 Random encouraging messages
+
+Support a collection of approved encouraging messages.
+
+Examples:
+
+1. Every great marketplace starts with its first listing. Be the first!
+2. Have something to sell? Zambia is ready to discover it.
+3. Your next customer could be one post away.
+4. Turn what you have into an opportunity. Start listing today.
+5. Have a skill, product or service? Give it a place on MarketZed.
+6. Your first listing could help someone find exactly what they need.
+7. Start small. Get discovered. Grow with MarketZed.
+8. What are you offering today? Let Zambia see it!
+
+Select one message at a time.
+
+Avoid changing the message excessively during recomposition.
+
+Keep the main Post CTA visible.
+
+The message should never imply that real listings exist when none are available.
+
+7.4 Explore empty states
+
+When filters produce no results:
+
+Display:
+
+No matching listings
+
+Try adjusting your search or removing some filters.
+
+[Clear Filters]
+
+Do not display fake recommendations.
+
+7.5 Category empty states
+
+Individual category screens should display:
+
+- Category identity.
+- Category navigation.
+- Relevant empty-state message.
+- Appropriate Post action where permitted.
+
+Do not display unrelated categories or empty sections.
+
+7.6 Other empty states
+
+Implement consistent empty states for:
+
+- My Listings.
+- Saved Listings.
+- Favourites.
+- Notifications.
+- Promotion History.
+- Recently Viewed.
+- Comparison.
+- Seller storefronts.
+
+Every empty state must provide an appropriate next action.
+
+8. WANTED POSTING — ONE FREE POST, THEN ACCOUNT VERIFICATION
+
+Introduce a controlled Wanted posting entitlement system.
+
+Every eligible account receives ONE free Wanted request.
+
+After the first free Wanted request has been used, the user must complete account verification before publishing additional Wanted requests.
+
+Example verification fee:
+
+K30
+
+This is a proposed one-time account verification fee, subject to the actual approved payment configuration.
+
+8.1 First Wanted post
+
+When a user attempts to publish their first Wanted request:
+
+- Check the account's free Wanted entitlement.
+- Allow one free publication.
+- Do not require payment for the first eligible post.
+- Record that the free entitlement has been consumed only after successful publication.
+- Show a clear confirmation.
+- Publish the Wanted request normally.
+
+Example:
+
+Your first Wanted post is FREE!
+
+Share what you are looking for and let sellers find you.
+
+[Continue]
+
+8.2 After the free Wanted post
+
+When the user attempts another Wanted publication:
+
+Check the account's verified status.
+
+If not verified, show an attractive verification screen.
+
+Example:
+
+UNLOCK MORE WANTED POSTS
+
+You've used your free Wanted post.
+
+Verify your account to continue publishing additional Wanted requests.
+
+K30
+
+One-time account verification
+
+[Verify Account]
+
+Do not charge per Wanted post.
+
+Verification is an account-level entitlement, not a separate fee for every additional Wanted listing.
+
+8.3 Verified users
+
+Once verification has been successfully confirmed:
+
+- Allow additional Wanted posts.
+- Do not charge again for the same verification entitlement.
+- Preserve verification status across sessions.
+- Allow normal Wanted listing management.
+- Apply standard listing moderation and publishing rules.
+
+8.4 Entitlement tracking
+
+Maintain trusted account-level fields or an equivalent secure entitlement model.
+
+Conceptual fields:
+
+- freeWantedPostUsed.
+- verified.
+- verificationStatus.
+- verificationPaymentId.
+- verificationDate.
+
+Adapt to the existing Firestore schema rather than blindly introducing incompatible fields.
+
+The entitlement must be enforced by trusted backend logic and Firestore Security Rules.
+
+Do not rely only on a hidden or disabled button.
+
+Prevent:
+
+- Multiple free posts through concurrent requests.
+- Free entitlement reuse after logout.
+- Free entitlement reuse after reinstalling.
+- Duplicate verification charges.
+- Unauthorized verification.
+- Publishing additional posts before required verification.
+
+If a free Wanted publication fails, do not consume the free entitlement.
+
+8.5 Verification visibility
+
+Make verification accessible from:
+
+- Account profile.
+- Wanted posting flow.
+- Payment screens.
+- Relevant notifications.
+
+Use consistent wording and pricing across the application.
+
+9. HANDSHAKE ICON FOR WANTED
+
+Use a handshake icon for Wanted-related navigation and actions.
+
+The bottom navigation must remain:
+
+- Home.
+- Explore.
+- Post.
+- Wanted.
+- Account.
+
+Replace the existing Wanted navigation icon with a recognizable handshake icon.
+
+Use the same icon in appropriate places:
+
+- Wanted bottom navigation.
+- Wanted category identity.
+- Wanted posting introduction.
+- Wanted notification types.
+- Wanted-related empty states.
+
+Requirements:
+
+- Clear icon.
+- Consistent sizing.
+- Correct selected/unselected states.
+- MarketZed orange when selected.
+- Neutral color when unselected.
+- Accessible content descriptions.
+
+Use a proper handshake icon from the approved icon library or an equivalent custom vector asset.
+
+Do not substitute an unrelated heart or generic user icon.
+
+10. CONTACT BUTTON DESIGN — VERTICAL LAYOUT
+
+Redesign contact actions throughout the application.
+
+IMPORTANT:
+
+Contact buttons must NOT be arranged side by side in a horizontal row.
+
+Use a vertical stacked layout.
+
+Example:
+
+[Call Seller]
+
+[WhatsApp]
+
+[Send Message]
+
+Each button must occupy the appropriate available width.
+
+If only one contact method exists, show one button.
+
+If two contact methods exist, show two vertically stacked buttons.
+
+If three exist, show three vertically stacked buttons.
+
+10.1 Contact button appearance
+
+Use:
+
+- Clear labels.
+- Appropriate icons.
+- Comfortable touch targets.
+- Consistent button heights.
+- Rounded corners.
+- Accessible contrast.
+- Appropriate spacing.
+
+Examples:
+
+[Phone icon] Call Seller
+
+[WhatsApp icon] WhatsApp
+
+[Message icon] Send Message
+
+10.2 Context-sensitive labels
+
+Use appropriate wording depending on the listing.
+
+Products:
+
+- Contact Seller.
+
+Rental properties:
+
+- Contact Landlord.
+- Contact Agent.
+
+Services:
+
+- Contact Provider.
+
+Jobs:
+
+- Contact Employer.
+
+Wanted:
+
+- Contact Requester.
+
+10.3 Contact functionality
+
+Buttons must perform their actual actions.
+
+Support available contact methods without inventing contact information.
+
+If a contact method is missing, hide that button.
+
+Do not display nonfunctional buttons.
+
+Protect private contact information according to the existing account and listing privacy rules.
+
+11. ADD 120+ TEST LISTINGS ACROSS MARKETPLACE CATEGORIES
+
+Create a development-only test-data system containing at least 120 realistic test listings.
+
+The purpose is to allow proper testing of:
+
+- Homepage.
+- Explore.
+- Category navigation.
+- Search.
+- Filters.
+- Sponsored placements.
+- Listing cards.
+- Detail screens.
+- Empty states.
+- Favourites.
+- Comparison.
+- Contact actions.
+- Seller profiles.
+- Pagination.
+- Performance.
+
+11.1 Test-data distribution
+
+Create at least 120 listings distributed across categories.
+
+Suggested distribution:
+
+Category| Test listings
+Products| 35
+Rental properties| 20
+Services| 20
+Jobs| 15
+Wanted requests| 15
+Swaps| 15
+TOTAL| 120
+
+These are development fixtures, not real marketplace listings.
+
+11.2 Test listing content
+
+Every appropriate test listing should have realistic:
+
+- Title.
+- Description.
+- Category.
+- Price or budget.
+- Location.
+- Publication date.
+- Seller/provider information.
+- Listing status.
+- Relevant attributes.
+
+Image-based categories should have external image URLs.
+
+Wanted requests must NEVER have visible listing photographs, regardless of whether test data contains an image URL.
+
+11.3 External images
+
+Use reliable external image sources with appropriate licensing and usage permissions.
+
+Use relevant photographs.
+
+Examples:
+
+- Phones and electronics.
+- Furniture.
+- Clothing.
+- Houses and apartments.
+- Plumbing services.
+- Electrical services.
+- Vehicle services.
+- Professional services.
+- Job-related imagery.
+
+Requirements:
+
+- Avoid unrelated images.
+- Avoid broken image URLs.
+- Use image loading placeholders for image-based categories.
+- Cache images.
+- Use graceful fallbacks.
+- Do not create enormous image downloads.
+
+Use actual external image URLs in development fixtures, not fabricated local paths.
+
+Do not hotlink copyrighted images without appropriate permission.
+
+11.4 Easy removal before production
+
+This requirement is extremely important.
+
+All test data must be clearly separated from production data.
+
+Create a dedicated test-data mechanism.
+
+Possible implementation:
+
+- Development-only fixture repository.
+- Debug build seed command.
+- Dedicated development Firestore collection.
+- Test data namespace.
+- Environment-based test-data flag.
+
+Example conceptual setting:
+
+MARKETZED_TEST_DATA_ENABLED=true
+
+Production:
+
+MARKETZED_TEST_DATA_ENABLED=false
+
+The exact mechanism must match the existing architecture.
+
+Requirements:
+
+- Never insert test listings into genuine production marketplace collections.
+- Never mix test and real seller records.
+- Never create fake real-user profiles.
+- Never create fake verified sellers.
+- Never create fake successful payments.
+- Never create fake promotion confirmations.
+- Never expose test listings in production.
+- Provide a reliable cleanup/reset mechanism.
+- Document exactly how to disable and remove test data.
+
+The release build must exclude development-only fixtures or make their activation impossible through normal production configuration.
+
+11.5 Test accounts and verification
+
+Use clearly identifiable development-only test accounts where necessary.
+
+Do not mark test users as genuinely verified in production.
+
+Use test payment states only in a controlled development environment.
+
+12. SIMPLE DESIGN FOR EVERY AGE GROUP
+
+MarketZed must be understandable to people of different ages and levels of smartphone experience.
+
+Design for:
+
+- Young people.
+- Older people.
+- First-time smartphone users.
+- Individual sellers.
+- Small businesses.
+- Professional businesses.
+- People with limited digital experience.
+
+12.1 Design principles
+
+Use:
+
+- Simple language.
+- Clear labels.
+- Large readable text.
+- Comfortable touch targets.
+- Familiar icons.
+- Predictable navigation.
+- Clear buttons.
+- Minimal unnecessary steps.
+- Consistent layouts.
+- Good spacing.
+- High contrast.
+- Helpful error messages.
+
+Avoid:
+
+- Complicated menus.
+- Too many options on one screen.
+- Tiny icons.
+- Unclear symbols.
+- Excessive animations.
+- Technical terminology in customer-facing screens.
+- Hidden important actions.
+- Unnecessary forms.
+- Confusing payment instructions.
+
+12.2 Button wording
+
+Use simple labels.
+
+Examples:
+
+- Post Listing.
+- View Details.
+- Contact Seller.
+- Edit Listing.
+- Save Changes.
+- Verify Account.
+- Continue.
+- Try Again.
+- Clear Filters.
+- My Listings.
+
+Avoid overly technical language.
+
+12.3 Accessibility
+
+Support:
+
+- Android font scaling.
+- Screen readers.
+- Content descriptions.
+- High contrast.
+- Comfortable touch targets.
+- Keyboard navigation where appropriate.
+- Reduced motion.
+- Proper error announcements.
+
+12.4 Light and dark mode
+
+All new screens must support both themes.
+
+This includes:
+
+- Notifications.
+- Editing bottom sheets.
+- Payment screens.
+- Account verification.
+- Empty states.
+- Wanted posting flow.
+- Contact buttons.
+
+Do not allow white text on white surfaces or unreadable dark-mode components.
+
+13. PERFORMANCE AND DATA HANDLING
+
+Use the existing architecture efficiently.
+
+Requirements:
+
+- Cache-first rendering.
+- Independent section loading.
+- Firestore pagination.
+- Bounded queries.
+- Stable Compose keys.
+- Request cancellation.
+- Query deduplication.
+- Image caching.
+- Background synchronization.
+- Minimal recomposition.
+- Safe Room persistence.
+
+Notifications must not load unnecessary full listing documents.
+
+Editing should fetch only the information required for the selected listing.
+
+The 120+ test listings must not be loaded into production queries.
+
+Maintain the original marketplace section order.
+
+14. REQUIRED TESTING
+
+Do not consider implementation complete until the following have been verified.
+
+Notifications
+
+- [ ] Beautiful notification cards.
+- [ ] Correct notification icons.
+- [ ] Titles and descriptions.
+- [ ] Timestamps.
+- [ ] Read/unread states.
+- [ ] Mark as read.
+- [ ] Mark all as read.
+- [ ] Relevant navigation.
+- [ ] No duplicate records.
+
+Listing editing
+
+- [ ] Edit products.
+- [ ] Edit rental properties.
+- [ ] Edit services.
+- [ ] Edit jobs.
+- [ ] Edit Wanted requests.
+- [ ] Correct fields prepopulated.
+- [ ] Image management for supported categories.
+- [ ] Wanted image controls absent.
+- [ ] Validation.
+- [ ] Saving feedback.
+- [ ] Ownership enforcement.
+- [ ] Successful persistence.
+
+Payment
+
+- [ ] Large ZMW amounts.
+- [ ] Clear payment purpose.
+- [ ] Payment method.
+- [ ] Payment instructions.
+- [ ] Pending state.
+- [ ] Success state.
+- [ ] Failed state.
+- [ ] Retry.
+- [ ] Duplicate payment prevention.
+- [ ] Trusted confirmation.
+
+Account verification
+
+- [ ] Verify Account CTA below profile information.
+- [ ] Pending state.
+- [ ] Verified state.
+- [ ] Failed state.
+- [ ] Correct payment amount.
+- [ ] Trusted entitlement activation.
+
+Maps
+
+- [ ] Map screens removed.
+- [ ] Map navigation removed.
+- [ ] Map dependencies reviewed.
+- [ ] Town filters work.
+- [ ] District filters work.
+- [ ] Listing location displays correctly.
+
+Empty states
+
+- [ ] Homepage hides empty sections.
+- [ ] Category screens have appropriate empty states.
+- [ ] One homepage empty state when everything is empty.
+- [ ] Encouraging messages work.
+- [ ] Explore empty state works.
+- [ ] My Listings empty state works.
+- [ ] Saved Listings empty state works.
+- [ ] Notifications empty state works.
+- [ ] No fake listings appear.
+
+Wanted posting
+
+- [ ] First Wanted post is free.
+- [ ] Free entitlement is recorded after successful publication.
+- [ ] Second post requires verification if account is unverified.
+- [ ] K30 example is configurable.
+- [ ] Payment confirmation is trusted.
+- [ ] Verified accounts can publish additional Wanted requests.
+- [ ] No repeated verification charges.
+- [ ] Concurrent requests cannot reuse free entitlement.
+
+Wanted navigation
+
+- [ ] Handshake icon.
+- [ ] Selected state.
+- [ ] Unselected state.
+- [ ] Correct navigation.
+- [ ] Consistent icon usage.
+
+Contact buttons
+
+- [ ] Buttons vertically stacked.
+- [ ] No horizontal contact button rows.
+- [ ] Context-sensitive labels.
+- [ ] Correct contact actions.
+- [ ] Missing methods hidden.
+
+Test data
+
+- [ ] At least 120 fixtures.
+- [ ] Correct category distribution.
+- [ ] Relevant external images.
+- [ ] No Wanted listing photographs.
+- [ ] Development-only separation.
+- [ ] Cleanup mechanism.
+- [ ] Production exclusion.
+
+Accessibility
+
+- [ ] Readable text.
+- [ ] Accessible controls.
+- [ ] Light theme.
+- [ ] Dark theme.
+- [ ] Android font scaling.
+- [ ] Screen reader support.
+- [ ] Comfortable touch targets.
+
+15. REQUIRED DELIVERY
+
+Deliver:
+
+1. Updated Android source project.
+2. Updated notifications UI.
+3. Complete listing-editing functionality.
+4. Redesigned payment screens.
+5. Account verification CTA.
+6. Map functionality removal.
+7. Unified empty-state system.
+8. Wanted free-post entitlement.
+9. Handshake navigation icon.
+10. Vertical contact button system.
+11. At least 120 development-only test listings.
+12. Test-data removal instructions.
+13. Firestore rules and index changes where necessary.
+14. Database migration notes.
+15. Successful clean release build.
+16. Installable APK.
+17. Testing report.
+18. Updated screenshots.
+19. Changed files and modules.
+20. Known limitations and external configuration requirements.
+
+16. FINAL ENGINEERING REQUIREMENTS
+
+Do not sacrifice existing functionality.
+
+Do not replace real payment integrations with simulated success.
+
+Do not claim production readiness based only on compilation.
+
+Test actual payment confirmation, listing editing, account verification, Wanted entitlements, notifications, caching and navigation.
+
+Keep development test data completely separate from genuine production listings.
+
+If work must continue in another session, preserve a clear checkpoint of completed features, remaining tasks, build status and unresolved issues.
+
+THE FINAL PRODUCT MUST BE:
+
+- Easy to understand.
+- Easy to navigate.
+- Attractive.
+- Fast.
+- Reliable.
+- Accessible.
+- Secure.
+- Suitable for all age groups.
+- Appropriate for the Zambian marketplace.
+
+CENTRAL PRODUCT VISION
+
+MAKE MARKETZED A SIMPLE, TRUSTWORTHY AND ENJOYABLE MARKETPLACE WHERE EVERY ZAMBIAN CAN DISCOVER, SELL, RENT, OFFER SERVICES, FIND OPPORTUNITIES AND CONNECT WITH OTHER PEOPLE.

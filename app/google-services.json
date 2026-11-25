@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "609231894317",
+    "project_id": "marketzed",
+    "storage_bucket": "marketzed.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609231894317:android:b8b2e949d59ebe3a6bc5a4",
+        "android_client_info": {
+          "package_name": "com.techgu.marketzed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609231894317-imralgrcnls2fmetjgtbt5n3olt7caot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techgu.marketzed",
+            "certificate_hash": "c3501bd9f5db6c6e8469f0e79f9c3ff041dd46f3"
+          }
+        },
+        {
+          "client_id": "609231894317-03cf7ced41cbee79e75915dd0e48f34b101c55b8d6945c5c1866e7cd804e2611.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techgu.marketzed",
+            "certificate_hash": "03cf7ced41cbee79e75915dd0e48f34b101c55b8d6945c5c1866e7cd804e2611"
+          }
+        },
+        {
+          "client_id": "609231894317-kbr6hdn5k265aqg925qr2begocvntu6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkipXJkt1aqbD8NoCjWo5Ey1rO91hXHkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609231894317-kbr6hdn5k265aqg925qr2begocvntu6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

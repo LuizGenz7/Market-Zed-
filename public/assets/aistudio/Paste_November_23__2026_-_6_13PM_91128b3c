@@ -1,0 +1,1102 @@
+MARKETZED – COMPLETE APPLICATION IMPROVEMENTS & NEW FEATURES
+
+Senior Developer Implementation Specification
+
+Project: MarketZed
+Platform: Flutter Android Application
+Backend: Existing MarketZed production backend
+Website: https://marketzed.netlify.app
+Developer / Company: Tech Generative Universe (TechGU)
+Founder: Lewis Chabu
+
+---
+
+1. PROJECT OBJECTIVE
+
+Improve and upgrade the entire existing MarketZed Flutter application to production-quality standards.
+
+This is a comprehensive application-wide improvement, not a redesign of one screen.
+
+The objective is to:
+
+- Fix existing broken functionality.
+- Improve UI/UX consistency.
+- Improve listing management.
+- Introduce a dynamic verification pricing system.
+- Improve payment and sponsorship experiences.
+- Improve notifications.
+- Redesign the Home screen.
+- Improve Wanted, Services and Jobs layouts.
+- Improve user profiles and trust.
+- Improve application navigation.
+- Optimize Firestore reads, writes and performance.
+- Maintain compatibility with the existing production backend.
+
+IMPORTANT: Do not unnecessarily rebuild existing functionality or replace the existing backend. Inspect the current codebase and architecture first. Preserve working features and existing data.
+
+2. GLOBAL DESIGN SYSTEM
+
+Apply a consistent design system throughout the entire application.
+
+Brand colours
+
+Primary orange:
+
+- Hex: #F97316
+
+Other colours:
+
+- White: #FFFFFF
+- Black: #000000
+- Dark backgrounds: appropriate near-black shades.
+- Secondary text: theme-appropriate grey.
+
+Light and dark themes
+
+Both themes must be fully supported.
+
+Light mode:
+
+- Clean white and light-grey surfaces.
+- Dark readable text.
+- Orange primary actions and selected states.
+
+Dark mode:
+
+- Near-black backgrounds.
+- Dark-grey cards and surfaces.
+- White primary text.
+- Muted grey secondary text.
+- Orange primary actions and selected states.
+
+Do not implement a dark theme by simply inverting light-theme colours. Design both themes properly.
+
+Selected options
+
+All selected options must use the primary orange brand colour.
+
+Apply this to:
+
+- Filter chips.
+- Category chips.
+- Segmented controls.
+- Selected tabs.
+- Selected navigation options.
+- Radio buttons.
+- Checkboxes.
+- Date-picker selections.
+- Dropdown selections.
+- Active filters.
+- Other selectable UI components.
+
+Unselected options should use neutral theme colours.
+
+Global UI consistency
+
+Standardize:
+
+- Border radii.
+- Card spacing.
+- Button heights.
+- Input heights.
+- Typography.
+- Icon sizes.
+- Page padding.
+- Loading indicators.
+- Empty states.
+- Error states.
+- Confirmation dialogs.
+- Bottom sheets.
+
+Avoid excessively thick focus borders.
+
+All screens must respect Android system bars, keyboard insets, safe areas and different screen sizes.
+
+3. FIX TESTIMONIALS
+
+Testimonials are currently not displaying correctly.
+
+Investigate and fix the complete testimonial flow.
+
+Requirements:
+
+- Correctly fetch testimonials from the existing backend.
+- Display testimonials when available.
+- Display the author's name and profile photo where available.
+- Display testimonial content.
+- Display rating where supported by the existing data model.
+- Display the posting date.
+- Support loading, error and empty states.
+- Ensure Firestore security rules permit only authorized operations.
+- Prevent duplicate testimonial submissions where applicable.
+
+Do not create fake testimonials or hardcoded sample testimonials in production.
+
+4. DYNAMIC VERIFICATION PRICING
+
+This is an important business requirement.
+
+Default verification price
+
+Default price: K30.
+
+However, K30 MUST NOT be permanently hardcoded throughout the application.
+
+The application must fetch the current verification price from Firestore.
+
+Dynamic pricing behaviour
+
+Example:
+
+Initial Firestore configuration:
+Verification price = K30.
+
+Administrator changes the price:
+Verification price = K40.
+
+The application must automatically use K40 for new verification payments.
+
+The same applies to any future price change.
+
+Requirements:
+
+- Centralize pricing configuration.
+- Fetch the current verification price from Firestore.
+- Cache the latest valid configuration appropriately.
+- Refresh configuration when appropriate.
+- Display the current price before checkout.
+- Never use an outdated cached price for authoritative payment confirmation.
+- The backend must validate the price independently.
+- Handle unavailable pricing configuration safely.
+
+If Firestore cannot be reached, use the last valid cached configuration only when its freshness and business rules permit. Do not silently invent a price.
+
+Suggested configuration structure
+
+Use a centralized configuration document, adapting to the existing Firestore structure.
+
+Example:
+
+app_config/pricing
+
+{
+"verificationFee": 30,
+"currency": "ZMW",
+"updatedAt": "server_timestamp"
+}
+
+The actual configuration structure should be agreed with the existing backend before implementation.
+
+5. ONE-TIME USER VERIFICATION
+
+Verification is a one-time payment per user.
+
+Verification rules
+
+1. Every eligible user can request verification.
+2. The current verification price is fetched from Firestore.
+3. The user sees the price before proceeding.
+4. The user completes payment.
+5. The backend independently verifies the payment.
+6. After confirmed successful payment, the account becomes verified.
+7. Verification remains permanent.
+8. The user must never be charged again for ordinary profile updates.
+9. Verification must remain active after profile-photo changes.
+10. Verification must remain active after ordinary personal-detail changes.
+
+Verification badge
+
+Display a recognizable verification badge beside verified users' names.
+
+Apply the badge consistently to:
+
+- Product listings.
+- Wanted listings.
+- Services.
+- Jobs.
+- User profiles.
+- Other public areas displaying user identity.
+
+Profile changes after verification
+
+Verified users must be allowed to:
+
+- Change their profile photo.
+- Update their name.
+- Update their biography.
+- Change permitted personal details.
+
+Changing ordinary profile information must not automatically remove the verification badge.
+
+However, prevent impersonation.
+
+If a user changes important identity information, implement an appropriate review or re-verification process where necessary.
+
+Do not allow users to manipulate Firestore fields to grant themselves verification.
+
+Backend security
+
+The backend must be the authority for verification status.
+
+Never grant verification based only on a Flutter client-side payment-success message.
+
+Use secure payment verification and idempotent transaction handling.
+
+Suggested user fields, adapted to the existing schema:
+
+{
+"isVerified": true,
+"verifiedAt": "server_timestamp",
+"verificationPaymentId": "payment_reference"
+}
+
+These fields must only be updated through trusted backend operations.
+
+6. PRODUCT CARD IMPROVEMENTS
+
+All product cards must have consistent heights and professional layouts.
+
+Requirements
+
+- Standardize image aspect ratios.
+- Use consistent card padding.
+- Use consistent image containers.
+- Keep product names within a fixed number of lines.
+- Apply ellipsis (...) to overflowing text.
+- Prevent text overlap.
+- Keep prices aligned.
+- Keep product metadata aligned.
+- Maintain consistent spacing.
+- Avoid cards growing unpredictably because of long titles.
+- Ensure responsiveness on different screen sizes.
+
+Example:
+
+Product image
+
+Product name that may be truncated...
+
+K250
+
+Location / relevant metadata
+
+Card dimensions must remain consistent within the same grid or horizontal listing section.
+
+Use reusable product-card components throughout the application.
+
+Do not create different product-card implementations for every screen unless there is a genuine functional reason.
+
+7. PRODUCT EDITING
+
+Users must be able to edit their existing listings.
+
+Currently, improve listing management so owners can update existing products without deleting and reposting them.
+
+Editable fields
+
+Where applicable, support editing:
+
+- Product title.
+- Description.
+- Price.
+- Category.
+- Subcategory.
+- Location.
+- Images.
+- Contact information.
+- Other existing listing attributes.
+
+Image editing
+
+Users must be able to:
+
+- Add new images.
+- Remove existing images.
+- Replace existing images.
+- Reorder images where supported.
+- Preview images before saving.
+
+Handle image uploads and deletion safely.
+
+Do not delete old images before successfully uploading replacement images and updating the listing.
+
+Avoid orphaned image files.
+
+Editing security
+
+Only the listing owner or an authorized administrator can edit a listing.
+
+Validate data on the backend.
+
+After successful editing:
+
+- Update the correct existing Firestore document.
+- Refresh relevant application caches.
+- Reflect changes in listing feeds.
+- Preserve listing ownership.
+- Preserve valid engagement data.
+- Preserve valid sponsorship information unless the edited fields require a sponsorship review.
+
+Do not create duplicate listings during editing.
+
+8. PROMOTED TO SPONSORED
+
+Replace the word "Promoted" with "Sponsored" throughout the application.
+
+Update:
+
+- Labels.
+- Buttons.
+- Payment pages.
+- Promotion-management screens.
+- Listing details.
+- Notifications.
+- Admin interfaces where applicable.
+- Relevant backend-facing terminology where safe.
+
+The customer-facing term must consistently be Sponsored.
+
+Sponsored listing priority
+
+Sponsored listings must appear before ordinary listings in relevant feeds.
+
+Apply this to:
+
+- Home product sections.
+- Category feeds.
+- Search results.
+- Other relevant listing feeds.
+
+However, sponsored listings must remain relevant to the selected category and search query.
+
+Do not show unrelated sponsored listings just to prioritize them.
+
+Sponsored listing rules
+
+- Clearly identify sponsored content.
+- Give sponsored listings appropriate visual distinction.
+- Use valid sponsorship status.
+- Check sponsorship start and expiry dates.
+- Expired sponsorships must automatically lose sponsored priority.
+- Failed payments must never activate sponsorship.
+- Prevent duplicate sponsorship charges.
+- Preserve the original listing and its ownership.
+
+Use backend-controlled sponsorship status and expiry information.
+
+Do not rely only on a Flutter timer to expire sponsorships.
+
+Ordering
+
+Use a predictable feed-ordering strategy:
+
+1. Eligible sponsored listings.
+2. Relevant ordinary listings.
+3. Remaining listings according to the existing sorting rules.
+
+Within each group, preserve the existing relevance and sorting behaviour.
+
+9. HOME SCREEN REDESIGN
+
+Redesign Home to show different marketplace content in organized sections.
+
+Do not place all content into one long mixed feed.
+
+Use section-by-section horizontal scrolling.
+
+Recommended Home structure
+
+1. Header.
+2. Search bar.
+3. Category shortcuts.
+4. Sponsored products.
+5. Recommended products.
+6. Latest products.
+7. Latest services.
+8. Latest jobs.
+9. Wanted requests.
+10. Other existing useful Home sections where appropriate.
+
+The actual sections should respect the current application features and available data.
+
+Horizontal sections
+
+Products:
+
+- Display horizontally scrolling product cards.
+- Keep product-card dimensions consistent.
+- Provide a View All action.
+
+Sponsored products:
+
+- Display eligible sponsored products first.
+- Clearly identify each sponsored item.
+
+Services:
+
+- Show a horizontally browsable section on Home.
+- Use the standardized Services listing design.
+
+Jobs:
+
+- Show a horizontally browsable section on Home.
+- Use the standardized Jobs listing design.
+
+Wanted:
+
+- Show a horizontally browsable section on Home.
+- Do not require listing images.
+
+IMPORTANT:
+
+Home can use horizontal previews for discovery, but the dedicated Wanted, Services and Jobs pages must use the single-column layout described below.
+
+Loading and performance
+
+Load sections independently.
+
+One slow section must not prevent other sections from displaying.
+
+Use:
+
+- Pagination.
+- Caching.
+- Lazy loading.
+- Appropriate Firestore queries.
+- Efficient image loading.
+- Skeleton placeholders where useful.
+
+Avoid fetching the same documents repeatedly when cached data is still valid.
+
+10. WANTED SECTION REDESIGN
+
+Use the supplied HouseHunt screenshot as the primary layout reference.
+
+The screenshot demonstrates a full-width, single-column classified-listing card.
+
+Wanted posts must NOT require images.
+
+Wanted card layout
+
+Each card should display:
+
+1. Request title.
+2. Request description/message.
+3. Location.
+4. Budget.
+5. Relevant category.
+6. Relevant attributes.
+7. View count.
+8. Divider.
+9. Author profile photo.
+10. Author name.
+11. Verification badge when applicable.
+12. Posting date.
+13. Contact button.
+14. Report action.
+
+Example Wanted post
+
+Title:
+FOR 1 OR 2 BEDROOM HOUSE
+
+Description:
+Looking for a house with an inbuilt kitchen and wardrobe, tiles, ceiling and clean bathroom.
+
+Metadata:
+
+- Roma, Lusaka.
+- Budget: K5,000.
+- Category: House.
+- Bedrooms: 2.
+- Views: 1.4K.
+
+Author:
+
+- Profile photo.
+- User name.
+- Verification badge.
+- Posted 1 day ago.
+
+Actions:
+
+- Contact.
+- Report.
+
+Wanted-specific rules
+
+- Use one-column cards on the dedicated Wanted page.
+- No required listing image.
+- Show the actual request message.
+- Show the author.
+- Show views only on Wanted listings.
+- Include a prominent Contact button.
+- Contact should open the appropriate existing messaging/contact workflow.
+- Avoid displaying personal contact details publicly unless the user has authorized it.
+
+Wanted views
+
+Count meaningful listing views.
+
+Avoid incrementing views repeatedly from:
+
+- Repeated widget rebuilds.
+- Background refreshes.
+- Duplicate requests.
+- Rapid repeated navigation.
+
+Use an appropriate backend-controlled or deduplicated view-counting mechanism.
+
+11. SERVICES PAGE REDESIGN
+
+Use a full-width, single-column listing design.
+
+Do not use a dense two-column product grid.
+
+Each Service card should include:
+
+- Service title.
+- Short description.
+- Service category.
+- Location.
+- Price or pricing description where available.
+- Service provider's profile photo.
+- Provider's name.
+- Verification badge.
+- Posting date.
+- Relevant service details.
+- Contact action.
+- Report action.
+
+Use ellipsis for overflowing descriptions.
+
+Keep card heights visually consistent where practical.
+
+Do not force product-style images into every Service listing. Use the existing optional service-image functionality where available.
+
+12. JOBS PAGE REDESIGN
+
+Use a full-width, single-column layout.
+
+Each Job card should display:
+
+- Job title.
+- Company or employer name where available.
+- Job description preview.
+- Location.
+- Salary or salary range where available.
+- Employment type where available.
+- Application deadline where available.
+- Employer profile information.
+- Verification badge where applicable.
+- Posting date.
+- Relevant job metadata.
+- Apply/contact action.
+- Report action.
+
+Do not display unavailable information as invented values.
+
+Use ellipsis for long descriptions.
+
+Make job cards readable and professional.
+
+13. PROFILE PAGE IMPROVEMENTS
+
+Improve the user profile page and make it more trustworthy.
+
+User name
+
+Always display the user's actual name when available.
+
+If the name is empty, use an appropriate default display name.
+
+Never display:
+
+- Null.
+- Undefined.
+- Empty strings.
+- Raw database identifiers.
+
+The fallback should be consistent across the application.
+
+Profile photo
+
+Allow users to:
+
+- Upload a profile photo.
+- Change an existing profile photo.
+- Preview a photo.
+- Remove or replace a photo where permitted.
+
+Use the existing image-storage architecture.
+
+Validate image type and size.
+
+Optimize images before upload where appropriate.
+
+Provide a default avatar when no photo exists.
+
+Profile information
+
+Display:
+
+- Name.
+- Profile photo.
+- Verification badge.
+- Biography where available.
+- Location where available and authorized.
+- Relevant account information.
+- Existing listing and account-management information.
+
+Trust and verification
+
+Make the verification status visible.
+
+Verified users must retain their badge when changing ordinary profile information.
+
+Profile photo changes must not trigger another verification payment.
+
+Important identity changes may require review to prevent impersonation.
+
+14. NOTIFICATIONS REDESIGN
+
+Completely improve the notification experience.
+
+This applies to both:
+
+1. In-app notifications.
+2. Android push notifications.
+
+In-app notification screen
+
+Create a polished notification interface.
+
+Each notification should support:
+
+- MarketZed app identity.
+- Appropriate notification icon.
+- Clear title.
+- Meaningful description.
+- Date and time.
+- Unread indicator.
+- Read/unread status.
+- Relevant notification category.
+- Appropriate navigation destination.
+
+Notification categories
+
+Support existing and relevant events such as:
+
+- Messages.
+- Listing activity.
+- Product updates.
+- Wanted request activity.
+- Payment updates.
+- Verification updates.
+- Sponsorship updates.
+- Account updates.
+- Important system announcements.
+
+Interaction
+
+When tapped, a notification should open the relevant destination.
+
+Examples:
+
+Payment successful -> Payment details.
+
+Verification successful -> User profile.
+
+New message -> Relevant conversation.
+
+Listing update -> Relevant listing.
+
+Sponsored listing activated -> Sponsorship details.
+
+Do not route all notifications to the same screen.
+
+Notification actions
+
+Where appropriate, support:
+
+- Mark as read.
+- Mark all as read.
+- Delete notification.
+- Clear notifications.
+- Unread notification indicators.
+
+Empty state
+
+When there are no notifications, show a professional empty state with a meaningful message.
+
+Android push notifications
+
+Improve Android notification presentation.
+
+Requirements:
+
+- Use MarketZed branding.
+- Use the appropriate application icon.
+- Display meaningful titles and descriptions.
+- Configure appropriate notification channels.
+- Support deep links.
+- Handle notification taps when the app is open, backgrounded or terminated.
+- Avoid duplicate notifications.
+- Respect user notification preferences.
+
+Do not confuse the small Android notification status-bar icon with the full application launcher icon. Configure both correctly.
+
+15. DATE PICKER IMPROVEMENTS
+
+Replace manually typed dates with proper date-picker controls wherever users select dates.
+
+Apply to:
+
+- Job application deadlines.
+- Sponsorship start/end dates where user selection is supported.
+- Other existing date-selection fields.
+- Relevant listing and account forms.
+
+Requirements:
+
+- Native or polished Flutter date-picker interface.
+- Theme-aware appearance.
+- Orange selected-date colour.
+- Appropriate minimum and maximum dates.
+- Clear date formatting.
+- Input validation.
+- Correct timezone handling.
+- Appropriate date persistence in Firestore.
+
+Do not use a date picker for ordinary automatically generated timestamps such as createdAt.
+
+16. NAVIGATION AND BACK BUTTON FIX
+
+Fix navigation across the entire application.
+
+The back button must return the user to the actual previous screen.
+
+Required behaviour
+
+- If the user opened a product from Search, Back should return to Search.
+- If the user opened a listing from Home, Back should return to Home.
+- If the user opened a profile from a listing, Back should return to the listing.
+- If the user opened a conversation from a profile or listing, Back should return to the previous screen.
+- If a page was opened through a notification, Back should behave according to the actual navigation stack.
+- Do not unexpectedly redirect users to unrelated tabs.
+
+Android system back
+
+Support:
+
+- Android system back gesture.
+- Android hardware/software back.
+- In-app app-bar back button.
+- Nested navigation.
+- Bottom navigation state preservation where appropriate.
+
+Review GoRouter or the application's existing navigation implementation.
+
+Do not replace the navigation architecture unnecessarily.
+
+Handle deep links and notification navigation correctly.
+
+17. PAYMENT AND SPONSORSHIP UI
+
+Improve the complete payment experience.
+
+Payment screens should look professional, clear and trustworthy.
+
+Payment screen
+
+Show:
+
+- What the user is paying for.
+- Current price.
+- Currency (ZMW).
+- Payment method.
+- Clear payment instructions.
+- Confirmation action.
+- Loading state.
+- Payment status.
+- Error information where necessary.
+
+Payment states
+
+Support:
+
+Pending:
+Payment has been initiated but is not yet confirmed.
+
+Successful:
+Payment has been confirmed by the backend.
+
+Failed:
+Payment was unsuccessful.
+
+Cancelled:
+Payment was cancelled.
+
+Never display a successful payment state based only on a client-side response.
+
+Payment history
+
+Where supported by the existing application, show:
+
+- Payment description.
+- Amount.
+- Date.
+- Reference.
+- Payment status.
+
+Sponsorship flow
+
+The user should be able to:
+
+1. Select a listing they own.
+2. Select an available sponsorship package.
+3. See the price.
+4. See sponsorship duration.
+5. Review the payment details.
+6. Proceed to payment.
+7. Receive confirmation.
+8. View sponsorship status and expiry.
+
+Use Firestore/backend configuration for dynamic prices and package information wherever appropriate.
+
+Do not hardcode package prices throughout Flutter.
+
+18. REPORTING AND USER TRUST
+
+Maintain appropriate reporting functionality across listings.
+
+Users should be able to report inappropriate:
+
+- Products.
+- Wanted posts.
+- Services.
+- Jobs.
+- User profiles where supported.
+
+Provide a clean reporting interface with:
+
+- Report reason.
+- Optional additional details.
+- Confirmation.
+- Submission status.
+
+Prevent duplicate report submissions where appropriate.
+
+19. FIRESTORE AND BACKEND REQUIREMENTS
+
+Maintain compatibility with the current MarketZed production backend.
+
+Before modifying database structures:
+
+1. Inspect existing Firestore collections.
+2. Inspect existing document fields.
+3. Inspect security rules.
+4. Inspect Cloud Functions or existing server endpoints.
+5. Inspect payment verification logic.
+6. Inspect existing image-upload workflows.
+7. Identify existing indexes and query patterns.
+
+Do not create duplicate collections or duplicate fields unnecessarily.
+
+Performance
+
+Optimize:
+
+- Firestore reads.
+- Firestore writes.
+- Listing pagination.
+- Query filtering.
+- Image loading.
+- Profile fetching.
+- Notification fetching.
+- Cache invalidation.
+- Background refreshes.
+
+Avoid fetching entire collections when only a page is needed.
+
+Use pagination and indexes.
+
+Use batch writes or transactions where appropriate.
+
+Keep expensive operations on the backend.
+
+Offline behaviour
+
+Preserve and improve existing offline-first behaviour.
+
+Where appropriate:
+
+- Display cached data.
+- Show clear offline indicators.
+- Queue safe local actions.
+- Synchronize when connectivity returns.
+- Prevent duplicate writes.
+- Handle conflicting edits safely.
+
+Never claim a payment succeeded while offline.
+
+20. CODE QUALITY AND ARCHITECTURE
+
+Respect the existing project architecture.
+
+If the current project uses:
+
+- Riverpod.
+- GoRouter.
+- Dio.
+- Drift.
+- Firebase Authentication.
+- Cloud Firestore.
+
+Continue using these established technologies where they are already integrated and working.
+
+Avoid introducing unnecessary dependencies.
+
+Create reusable components for:
+
+- Product cards.
+- Wanted cards.
+- Service cards.
+- Job cards.
+- Sponsored labels.
+- Verification badges.
+- User profile avatars.
+- Notification tiles.
+- Payment status indicators.
+- Filter chips.
+- Loading states.
+- Empty states.
+- Error states.
+
+Separate:
+
+- UI.
+- State management.
+- Data repositories.
+- Business logic.
+- Backend communication.
+
+Do not put complex business logic inside widgets.
+
+21. TESTING AND QUALITY ASSURANCE
+
+Do not consider the update complete merely because the application compiles.
+
+Test the following.
+
+Functionality
+
+- Testimonials load correctly.
+- Verification price loads from Firestore.
+- Changing the Firestore price changes the displayed price.
+- Verification is one-time.
+- Verified users are not charged again.
+- Profile updates preserve verification.
+- Product editing works.
+- Image replacement works.
+- Sponsored listings appear first in relevant feeds.
+- Expired sponsorships lose priority.
+- Wanted posts display correctly without images.
+- Wanted views are counted correctly.
+- Contact buttons work.
+- Services display correctly.
+- Jobs display correctly.
+- Notifications open correct destinations.
+- Date pickers work.
+- Back navigation works.
+- Payment statuses are accurate.
+
+UI/UX
+
+Test:
+
+- Light mode.
+- Dark mode.
+- Small Android screens.
+- Large Android screens.
+- Long product titles.
+- Long descriptions.
+- Missing profile photos.
+- Missing profile names.
+- Empty feeds.
+- Slow connections.
+- Offline mode.
+- Loading states.
+- Error states.
+
+Security
+
+Verify:
+
+- Users cannot edit other users' listings.
+- Users cannot grant themselves verification.
+- Users cannot manipulate prices.
+- Users cannot activate sponsorship without valid payment.
+- Expired sponsorships cannot retain priority.
+- Payment callbacks are verified securely.
+- Sensitive information is not exposed publicly.
+
+22. IMPLEMENTATION RULES
+
+These instructions are mandatory.
+
+1. Inspect the complete existing codebase before making changes.
+2. Understand the existing backend before changing Firestore structures.
+3. Preserve all working features.
+4. Do not remove existing functionality without authorization.
+5. Do not create fake data for production.
+6. Do not introduce unnecessary dependencies.
+7. Do not duplicate business logic.
+8. Do not hardcode dynamic prices.
+9. Do not trust client-side payment confirmation.
+10. Do not break existing user accounts or listings.
+11. Do not introduce unnecessary Firestore reads.
+12. Do not make the application slower.
+13. Ensure all changes work in light and dark mode.
+14. Ensure the application remains responsive.
+15. Use reusable components and maintainable code.
+16. Provide meaningful error handling.
+17. Test all changed functionality.
+18. Do not claim features are complete without verifying them.
+
+23. FINAL DELIVERABLES
+
+After implementation, provide:
+
+1. Summary of all modified features.
+2. List of modified files.
+3. Any Firestore configuration changes.
+4. Any required security-rule changes.
+5. Any required backend changes.
+6. Any required indexes.
+7. Any new dependencies and why they were needed.
+8. Test results.
+9. Known limitations.
+10. Android release build result.
+
+Produce a working, tested application.
+
+The final application should retain MarketZed's existing identity while delivering a more professional, consistent, trustworthy and faster user experience.
+
+---
+
+FINAL PRODUCT DIRECTION
+
+MarketZed must feel like one unified marketplace.
+
+Products, Wanted, Services, Jobs, Profiles, Payments, Sponsorships and Notifications must all follow the same quality standards.
+
+The HouseHunt screenshot supplied by the product owner is the visual reference for the single-column Wanted, Services and Jobs listing approach.
+
+The primary brand colour remains orange (#F97316).
+
+The verification fee starts at K30 but is controlled dynamically through Firestore. Verification is a one-time payment per user and remains permanent after ordinary profile updates.
+
+Sponsored listings replace Promoted listings and receive priority in relevant feeds.
+
+IMPORTANT FINAL INSTRUCTION: Implement the complete approved specification across the application, not just the easiest visible changes. Preserve existing backend compatibility and report honestly on anything that cannot be completed or verified.

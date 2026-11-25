@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Rounded square MarketZedOrange badge inside 66dp splash safe zone -->
+    <path
+        android:fillColor="#F97316"
+        android:pathData="M42,28h24a14,14 0 0,1 14,14v24a14,14 0 0,1 -14,14h-24a14,14 0 0,1 -14,-14v-24a14,14 0 0,1 14,-14z" />
+    <!-- Exact white Lucide shopping_bag centered at 54,54 with scale 1.2 (28.8dp inside 52dp badge) -->
+    <group
+        android:translateX="39.6"
+        android:translateY="39.6"
+        android:scaleX="1.2"
+        android:scaleY="1.2">
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2.0"
+            android:pathData="M16,10a4,4 0 0,1 -8,0" />
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2.0"
+            android:pathData="M3.103,6.034h17.794" />
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2.0"
+            android:pathData="M3.4,5.467a2,2 0 0,0 -0.4,1.2V20a2,2 0 0,0 2,2h14a2,2 0 0,0 2,-2V6.667a2,2 0 0,0 -0.4,-1.2l-2,-2.667A2,2 0 0,0 17,2H7a2,2 0 0,0 -1.6,0.8Z" />
+    </group>
+</vector>

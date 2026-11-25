@@ -1,0 +1,476 @@
+MARKETZED ANDROID — SENIOR DEVELOPER IMPLEMENTATION BRIEF
+New fixes, performance, design, AI, authentication and engagement update
+Prepared: 24 November 2026
+Product: MarketZed — Zambia Marketplace
+Brand: Tech Generative Universe (TechGU)
+Founder and CEO: Lewis Chabu
+
+======================================================================
+1. PURPOSE AND DELIVERY EXPECTATION
+======================================================================
+
+Implement this update in the existing MarketZed Android application. This is an enhancement and repair of the current product, not permission to remove working features or replace the product identity.
+
+Before coding, inspect the complete project, Gradle configuration, Kotlin/Compose versions, Firebase project, authentication/session flow, Firestore schema and rules, navigation, payment integrations, image loading and current design system. Preserve working integrations and data models. Do not create duplicate authentication systems or incompatible collections. Make a staged plan, implement incrementally, and compile/test after each stage.
+
+The result must be a fast, polished, reliable native Android marketplace. A successful compile alone does not prove production readiness.
+
+======================================================================
+2. NON-NEGOTIABLE MARKETPLACE RULES AND PRIORITY
+======================================================================
+
+MarketZed is a discovery and contact marketplace. Users browse listings and contact owners/sellers directly. Do not introduce checkout, wallet, escrow, delivery or settlement functionality unless separately approved.
+
+PROPERTY RULES:
+- Property listings are FOR RENT ONLY.
+- Allowed examples: houses, apartments, rooms, shops, offices, commercial premises and warehouses for rent.
+- Land is completely excluded.
+- No land sales, plot sales, land rental or land leasing.
+- No property-for-sale transaction type.
+- Enforce these rules in UI, domain/repository validation, queries, demo data, admin moderation and Firestore Security Rules wherever applicable. Hiding a category in the UI is not sufficient.
+
+DISCOVERY PRIORITY:
+- Products and approved marketplace categories are the primary purpose of MarketZed.
+- Rental properties are also a major marketplace category.
+- Wanted requests, jobs and services are secondary discovery content.
+- Wanted, jobs and services use full-width single-column cards.
+- In mixed Explore content, show a compact preview of one Wanted request, one latest Job and one Service, each with “View all”.
+- Do not let secondary content displace product/property sections.
+- Bottom navigation: Home, Explore, Post, Wanted, Account.
+- Saved/Favourites belongs inside Account, not in bottom navigation.
+
+======================================================================
+3. FIX SESSION EXPIRY — APPROXIMATELY 30 DAYS
+======================================================================
+
+Current failure in My Listings:
+“Couldn't load your listings. Your admin session has expired. Sign in again.”
+
+Investigate the actual cause. Do not hide the error or endlessly retry.
+
+Requirements:
+- Persist valid sign-in sessions for approximately 30 days where supported by the existing identity architecture.
+- Distinguish Firebase authentication state from any custom admin/API session. A client-side timer does not extend a server session.
+- Prefer Firebase-supported authentication persistence and, if the architecture uses server session cookies, configure and validate an appropriate maximum lifetime (about 30 days).
+- Refresh/reissue credentials securely where supported.
+- Never store passwords, refresh tokens or long-lived secrets in plaintext preferences or logs.
+- Use encrypted platform storage if sensitive local session material is required.
+- On resume or before protected requests, validate/refresh the session through the supported flow.
+- Distinguish network failure, offline cache, permission denied, revoked credentials and genuinely expired sessions.
+- If truly expired/revoked, show a clear sign-in action and preserve screen context where possible.
+- Admin access remains role-based and server/rules enforced. Longer sessions must not grant privileges.
+- Users must never self-promote to admin.
+
+Test app restart, process death, token refresh, expiry boundary, revoked credentials, offline use, disabled accounts and role changes. A valid user must not be repeatedly asked to sign in; a genuinely revoked session must be rejected.
+
+======================================================================
+4. GLOBAL DESIGN SYSTEM AND SECONDARY SCREEN REDESIGN
+======================================================================
+
+Home, Explore, Post and other bottom-navigation screens are the current visual reference. Bring every secondary screen to the same quality level.
+
+Create/consolidate reusable components:
+- Shared page scaffold and fixed-height top app bar.
+- Consistent horizontal page gutters and vertical spacing scale.
+- Shared typography, buttons, chips, inputs, cards and dividers.
+- Shared modal/bottom-sheet treatment.
+- Shared loading, empty, offline, success, warning and error states.
+- Shared light/dark theme tokens and navigation/back behaviour.
+
+HEADER:
+- Use one consistent header height across the app, excluding system insets.
+- Apply status-bar and navigation-bar insets correctly.
+- Keep title, back button and action alignment consistent.
+- Scrolling screens may use a deliberate collapsing header, but not arbitrary header heights.
+- Remove excessive blank top padding and inconsistent page starts.
+- Keep content scrollable and accessible on small devices.
+
+SPACING/CARDS:
+- Audit My Listings, Promote a Listing, Account Verification, Payment History, Notifications, Edit Profile, Settings, listing details, forms and filters.
+- Fix inconsistent padding, spacing, card heights and clipped content.
+- Reduce heavy shadows. Prefer subtle borders, restrained elevation and clear surface contrast.
+- Keep corner radii and internal padding consistent.
+- Respect keyboard and system insets; primary actions must not be hidden.
+- Use polished, meaningful empty/error/offline states.
+
+ACCOUNT ICON:
+- Replace inconsistent account/person symbols with one consistent Lucide user/person icon treatment throughout navigation, headers, profile actions and account cards.
+- Keep dimensions, stroke weight and alignment consistent.
+- If a user photo exists, show it; otherwise use a clean initials/avatar fallback.
+
+BRAND AND DARK MODE:
+- MarketZed brand mark must remain a white icon on an orange background in both light and dark modes.
+- Do not invert the white brand icon in dark mode.
+- Keep contrast accessible.
+
+LUCIDE:
+- Use Lucide icons consistently for navigation, actions, status indicators, cards, empty states and settings.
+- Use a maintained Lucide-compatible Android/Compose vector integration or approved vector assets compatible with the project.
+- Avoid mixing unrelated icon packs or platform-default symbols.
+- Keep icon dimensions/strokes consistent; do not use emoji as functional icons.
+- Use a suitable Lucide shopping-bag/store symbol for the MarketZed mark if appropriate.
+- App launcher icon and splash must use the approved orange square with a clean white shopping-bag/store mark. Provide proper Android adaptive icon assets and splash sizing. The icon is a brand mark; do not claim Lucide itself is the logo.
+
+======================================================================
+5. EXPLORE SEARCH AND FILTER COMPACTNESS
+======================================================================
+
+Reduce the height of the Explore search field and filter control while retaining comfortable touch targets and readable text.
+
+- Reduce excess gaps between search, category chips, location/budget controls and listing sections.
+- Align search and filter controls in one row where width permits.
+- Use compact, consistent chips; horizontally scroll long category labels without clipping.
+- Keep selected filters visible and easy to clear.
+- Make ZMW budget filtering genuinely affect the result set.
+- Support minimum-only, maximum-only and min/max ranges.
+- Validate negative values and min greater than max.
+- Parse currency safely, including commas and decimals.
+- Define behaviour for unpriced listings and empty values.
+- Test range boundaries and filter-state restoration.
+
+======================================================================
+6. SPONSORED CARDS AND PREMIUM LISTING DETAILS
+======================================================================
+
+TERMINOLOGY:
+- Replace “Featured” with “Sponsored” wherever the label represents paid promotion: cards, sections, carousels, search results and detail pages.
+- Do not label unpaid editorial/organic content as Sponsored.
+- Promotion must follow existing payment confirmation, schedule and status rules. Never activate on button tap alone.
+
+CARDS:
+- Reduce the visual size of favourite/heart buttons while preserving an accessible touch target.
+- Do not let floating actions obscure listing photos or text.
+- Reduce card shadows and use consistent image aspect ratios.
+- Handle missing, slow or failed external images gracefully.
+- Keep title, category, price, location, seller and sponsored status readable.
+
+DETAIL EXPERIENCE:
+- Build a premium, image-led listing detail screen.
+- Implement a smooth collapsing/sliver-style image gallery: hero image responds to scroll and collapses into a compact top region while navigation/actions remain usable.
+- Use native Jetpack Compose nested-scroll/Material patterns appropriate to this Kotlin app; do not copy Flutter APIs literally.
+- Support multiple images, paging, image count, placeholders and image failure states.
+- Structure title, price, location, description, attributes/condition, seller and contact actions clearly.
+- Property detail must say “For Rent”; never imply sale.
+- Keep Sponsored status visible when applicable.
+- Do not add animation that delays access to listing information.
+
+======================================================================
+7. MY LISTINGS AND PROMOTION PAYMENT UI
+======================================================================
+
+MY LISTINGS:
+- Fix the session issue using Section 3.
+- Provide All, Live, Pending Review and Reviewed filters mapped to real statuses.
+- Distinguish loading, empty, offline, permission-denied and authentication-expired states.
+- “Try again” must retry the correct request without an infinite loop.
+- Do not report a network failure as an expired admin session.
+- Render cached listings immediately where safe.
+
+PROMOTE A LISTING:
+- Redesign promotion payment as premium, attractive plan cards.
+- Clearly show duration, ZMW price, benefits and selected state.
+- Use a clear selected-plan treatment and prominent, restrained payment action.
+- Show eligible live listings with thumbnail/title and clear selection.
+- If none are eligible, explain why and link to publish/manage listings.
+- Show readable promotion history with dates, duration and status; do not use raw database IDs as the main title.
+- Explain that promotion activates only after confirmed payment.
+- Use the existing payment provider and trusted confirmation flow. Never fake success.
+- Validate payer mobile number, listing and plan before initiating payment.
+- Provide waiting, success, failure and retry states.
+
+======================================================================
+8. FAST QUERIES, CACHE-FIRST DATA AND OFFLINE SUPPORT
+======================================================================
+
+Audit Firestore queries:
+- Remove unbounded collection downloads.
+- Use indexed, bounded queries, server-side filters where supported, cursor pagination and sensible page sizes.
+- Avoid downloading all listings and filtering everything on-device.
+- Centralize query logic in repositories/data sources.
+- Prevent duplicate requests from recomposition/navigation.
+- Debounce typing and cancel obsolete searches.
+- Separate public marketplace cache policy from private account data.
+- Document required Firestore indexes.
+
+CACHE-FIRST UX:
+- Immediately render valid cached data when a screen opens.
+- Fetch fresh data in the background and update the UI.
+- Use a subtle refresh indicator instead of replacing content with a full-screen spinner.
+- Indicate stale/offline data where appropriate.
+- Persist useful cache across app restarts.
+- Handle invalidation, schema changes, sign-out and account switching.
+- Never expose one user's private cached data to another user.
+
+DRIFT / LOCAL DATABASE:
+- Evaluate Drift only if compatible with the existing native stack. Drift is commonly a Dart/Flutter technology; do not add a Flutter/Dart layer to a Kotlin-only Android app just to use its name.
+- For Kotlin/Jetpack Compose, prefer Room/SQLite unless the project already has a supported Drift integration.
+- Cache appropriate public listing summaries, categories, recently viewed items, saved items and search history.
+- Use DataStore for small preferences, not relational marketplace data.
+- Define freshness timestamps, schema versioning and sync rules.
+- Never cache payment credentials or raw authentication secrets.
+
+OFFLINE:
+- Browse previously cached data while offline.
+- Show offline status without falsely claiming the session expired.
+- Queue only safe, idempotent actions where appropriate.
+- Never queue a payment as though it succeeded.
+- Reconcile safe pending actions when connectivity returns.
+- Handle conflicts and deleted/updated listings.
+
+ALGOLIA:
+- Evaluate current Algolia free-tier availability, limits, indexing/operation quotas, terms and pricing before adopting it. Do not assume a free tier is permanent or sufficient.
+- If adopted, synchronize Firestore to the search index through trusted backend functions/server-side code.
+- Never embed Algolia admin keys in the APK.
+- If unsuitable, optimize Firestore search or propose an alternative.
+- Document cost and scale assumptions.
+
+======================================================================
+9. REMOTE PUSH AND SCHEDULED LOCAL NOTIFICATIONS
+======================================================================
+
+Use Firebase Cloud Messaging if Firebase is the existing messaging platform.
+
+REMOTE PUSH:
+- Support foreground, background and app-closed notification delivery, subject to Android permission/OS restrictions.
+- Request Android notification permission on versions that require it.
+- Create clear notification channels.
+- Deep-link to relevant listing, Wanted request, payment status or account screen.
+- Prevent duplicate notifications between foreground handlers and system payload handling.
+- Respect notification preferences and quiet hours.
+- Do not send promotional notifications without appropriate user consent.
+
+LOCAL SCHEDULED REMINDERS:
+- Use WorkManager for deferrable periodic work.
+- Use exact alarms only when justified and permitted. Do not promise exact delivery if Android restrictions prevent it.
+- Useful reminders may include listing expiry/attention, Wanted request expiry, promotion ending, unfinished draft, pending payment status and an optional weekly discovery digest.
+- Every reminder must be based on a real app event/state.
+- Let users control notification types, frequency and quiet hours; provide opt-out.
+- Cancel/reschedule reminders when the underlying item changes.
+
+GEMINI NOTIFICATION COPY:
+- Gemini may generate varied friendly wording, but event, timing, recipient and facts must come from trusted app data.
+- Do not generate arbitrary random claims, false urgency or repeated engagement spam.
+- Use short truthful copy and safe fallback templates when Gemini/network is unavailable.
+- Do not call Gemini at delivery time for every notification.
+
+======================================================================
+10. GEMINI MARKETPLACE ASSISTANT
+======================================================================
+
+Add an optional Gemini assistant for practical marketplace help.
+
+Example: “My budget is K5,000. What phone should I look for?”
+The assistant must:
+- Understand the stated ZMW budget.
+- Search actual available listings using bounded, approved queries.
+- Compare relevant listings by price, condition, location and known attributes.
+- Explain trade-offs and suggest suitable results within/near budget.
+- Link to real matching listings.
+- Clearly separate real listings from general advice.
+- Never invent stock, price, seller rating or availability.
+
+Other uses:
+- Refine search terms and filters.
+- Explain listing attributes.
+- Compare a small number of listings.
+- Suggest questions to ask a seller.
+- Help draft listing titles/descriptions without publishing automatically.
+- Explain MarketZed features.
+- Help users understand rental property options under the rent-only rule.
+
+PERSONALIZATION:
+- Adapt recommendations from explicit preferences and permitted marketplace interactions.
+- Provide controls to inspect/disable/clear personalization.
+- Do not infer sensitive traits.
+- Do not claim the model trains itself on personal data. “Learning” means controlled preference/recommendation adaptation, not automatic model fine-tuning.
+- Do not send passwords, tokens, payment data, private contacts or unnecessary personal data to Gemini.
+
+SECURITY:
+- Never put Gemini API keys in the APK.
+- Route requests through a trusted backend.
+- Enforce quotas, validation, rate limits and abuse protection.
+- Validate structured model output before display/use.
+- AI must never publish listings, contact sellers, make payments or change settings without explicit user action.
+- Provide non-AI fallback and label AI suggestions.
+
+======================================================================
+11. EMAIL/PASSWORD AND GOOGLE SIGN-IN
+======================================================================
+
+Provide both:
+1. Email address + password.
+2. Google sign-in, visually recommended as the convenient option.
+
+Use the existing Firebase Authentication project unless audit proves otherwise. Do not create a second identity system.
+
+Support:
+- Account creation, sign-in, sign-out and password reset.
+- Email verification where required by existing seller-action rules.
+- Input validation and clear loading/success/error states.
+- Duplicate-submit prevention.
+- Existing-account/provider-linking conflict handling.
+- Secure account linking where supported so users do not accidentally create duplicate identities.
+- Server/rules-based role checks.
+- No plaintext password storage.
+
+Google is recommended, but email/password must remain a complete supported method.
+
+======================================================================
+12. ABOUT TECH GENERATIVE UNIVERSE
+======================================================================
+
+Official public website supplied:
+https://techgu.netlify.app
+
+Approved facts supplied for this brief:
+- Company/brand: Tech Generative Universe (TechGU).
+- MarketZed is by TechGU.
+- Founder and CEO: Lewis Chabu.
+
+Before writing company history, mission, services, slogans, addresses, contact details or achievements, review the official website and use only facts it supports or copy approved by the owner. Do not invent registration details, clients, awards or achievements.
+
+Build an About TechGU screen consistent with MarketZed, identify Lewis Chabu as Founder and CEO, and provide a link to https://techgu.netlify.app. Use the spelling “Tech Generative Universe” and abbreviation “TechGU”.
+
+======================================================================
+13. SHIMMER SKELETONS AND MICRO-INTERACTIONS
+======================================================================
+
+Create skeletons matching final layouts for listing cards, image galleries, profiles/account rows, full-width Wanted/job/service cards, promotion plans and search results.
+
+- Use subtle shimmer, not flashing effects.
+- Respect reduced-motion/system animation preferences.
+- Reserve image/content dimensions to prevent layout shifts.
+- Use small indicators for background refresh.
+- Do not shimmer forever: show meaningful empty/error/offline states.
+- Avoid blocking scrolling unnecessarily.
+- Use short consistent transitions for selection, favourites and navigation.
+- Keep smooth on low-end Android devices; avoid expensive blur, huge shadows and excessive recomposition.
+
+======================================================================
+14. ACCESSIBILITY, RESPONSIVENESS AND PERFORMANCE
+======================================================================
+
+- Test narrow and large screens and different font scales.
+- Support light/dark themes and readable contrast.
+- Provide content descriptions for meaningful icons/images.
+- Support TalkBack and accessible touch targets.
+- Prevent clipping at larger font sizes.
+- Keep image-heavy feed scrolling smooth using resizing, caching and lazy loading.
+- Use stable keys in lazy lists.
+- Profile Compose recomposition and memory use.
+- Never run network/database/image work on the main thread.
+- Test slow, unstable and absent connectivity.
+- Measure startup and navigation performance on representative low/mid-range Android hardware.
+
+======================================================================
+15. SECURITY, DATA AND DEMO SEPARATION
+======================================================================
+
+- Preserve existing Firestore schema unless a reviewed migration is necessary.
+- Firestore Security Rules/backend authorization are the security boundary; client-side hiding is not security.
+- Never embed Firebase Admin credentials, Gemini secrets, Algolia admin keys or private service credentials in the APK.
+- Validate input client-side and in trusted backend/rules where possible.
+- Use least privilege and avoid exposing private user data in public queries.
+- Clear or partition private cache on sign-out/account switch.
+- Payment status must come from trusted confirmation, not client button state.
+- Logs must not contain passwords, tokens, payment secrets or unnecessary personal data.
+
+If demo/test data remains required for visual approval:
+- Isolate it in a dedicated demo repository/data source or explicit demo environment flag.
+- Never mix demo records with genuine production listings in a way users can mistake for real listings.
+- Use stable external image URLs and graceful image fallbacks.
+- Label demo content internally and prevent real payments, promotions or seller contact from demo records.
+- Provide a tested switch to disable/remove demo data without deleting real user data.
+- Never seed demo records automatically into production.
+- Demo property records must be rental-only; no land/plots.
+
+======================================================================
+16. STAGED IMPLEMENTATION PLAN
+======================================================================
+
+STAGE 1 — AUDIT:
+Inspect project, build/dependencies, Firebase, sessions, Firestore schema/rules, navigation, payments, images and UI. Run baseline clean build and record failures.
+
+STAGE 2 — CRITICAL FIXES:
+Repair My Listings session behaviour, budget range filtering, auth state handling and property rent-only/land exclusion enforcement.
+
+STAGE 3 — DESIGN SYSTEM:
+Standardize headers, insets, spacing, account icon, Lucide usage, card elevation, secondary screens, compact Explore search/filter and all state components.
+
+STAGE 4 — MARKETPLACE:
+Use Sponsored terminology correctly, improve cards, implement collapsing image detail, improve promotion plan/payment UI and verify secondary full-width Wanted/jobs/services sections.
+
+STAGE 5 — PERFORMANCE/OFFLINE:
+Optimize Firestore queries/indexes, cache-first rendering, Room/local persistence if appropriate, safe offline support and synchronization. Evaluate Algolia against current limits/costs.
+
+STAGE 6 — NOTIFICATIONS:
+Implement FCM, local reminders, notification settings, deep links and foreground/background/closed-app tests.
+
+STAGE 7 — GEMINI:
+Implement secure backend-mediated budget assistant, listing comparisons, personalization controls, quotas and fallback behaviour.
+
+STAGE 8 — AUTH/ABOUT:
+Verify email/password, Google sign-in, reset/linking and email verification. Build About TechGU from verified official website facts.
+
+STAGE 9 — RELEASE:
+Clean release build, unit/UI/integration tests, rules/index checks, physical-device tests, dark mode, insets, accessibility, performance and APK secret scan.
+
+======================================================================
+17. ACCEPTANCE CHECKLIST
+======================================================================
+
+[ ] My Listings no longer falsely reports an expired admin session.
+[ ] Valid sessions persist securely for about 30 days where supported.
+[ ] Expired/revoked sessions are rejected safely.
+[ ] Network/offline failures are not misreported as session expiry.
+[ ] Explore search/filter controls are shorter and aligned.
+[ ] ZMW minimum/maximum budget filtering works, including edge cases.
+[ ] Paid placements say Sponsored, not Featured.
+[ ] Favourite controls are visually smaller but accessible.
+[ ] Listing detail has a smooth collapsing/sliver-style image gallery.
+[ ] Secondary screens share consistent header height, padding and spacing.
+[ ] Card shadows are reduced.
+[ ] Account icon treatment is consistent.
+[ ] White brand icon on orange remains correct in dark mode.
+[ ] Lucide icon style is consistent throughout.
+[ ] App launcher icon and splash use approved MarketZed bag mark.
+[ ] Cache-first loading shows cached content immediately.
+[ ] Offline browsing works safely.
+[ ] Firestore queries are bounded/indexed and measured.
+[ ] Algolia is used only if current pricing/limits are suitable.
+[ ] FCM works in foreground/background/app-closed states, subject to OS permissions.
+[ ] Local reminders and user notification controls work.
+[ ] Gemini assistant uses actual listings and never invents offers.
+[ ] Gemini secrets are not embedded in APK.
+[ ] Personalization can be controlled/disabled.
+[ ] Email/password sign-in works.
+[ ] Google sign-in works and is recommended.
+[ ] About TechGU uses verified website facts.
+[ ] Demo data is isolated and removable without deleting real data.
+[ ] Property listings are rent-only.
+[ ] Land/plots are excluded from UI, query, validation and admin publishing.
+[ ] Products and rental properties retain marketplace priority.
+[ ] Wanted, jobs and services remain full-width secondary content.
+[ ] Clean release build and relevant tests pass.
+
+======================================================================
+18. REQUIRED HANDOVER
+======================================================================
+
+Deliver:
+1. Updated Android project source.
+2. Clean successful release APK (and AAB if requested).
+3. Gradle/dependency changes explained; avoid unnecessary upgrades.
+4. Firestore rules/index changes documented.
+5. Backend/Cloud Functions changes and deployment instructions, if needed.
+6. Environment template with variable names only, no secrets.
+7. Cache/database schema and migration notes.
+8. Notification setup and Android permission notes.
+9. Gemini backend setup, quota and security notes.
+10. Algolia decision with current pricing/limits and rationale.
+11. Test report with device/API levels and exact build result.
+12. Change log of files/modules changed.
+13. Known limitations and external credentials/console actions still required.
+
+FINAL ENGINEERING RULE:
+Do not replace real integrations with fake success states. Do not remove working functionality to make compilation pass. Do not call the app production-ready based only on a successful compile. Verify build, launch, authentication, real queries, offline behaviour, payment-state integrity and the acceptance checklist.

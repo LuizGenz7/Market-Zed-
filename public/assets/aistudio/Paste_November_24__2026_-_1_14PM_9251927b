@@ -1,0 +1,1075 @@
+MARKETZED ANDROID — COMPLETE NEW FEATURES & IMPROVEMENTS
+
+Senior Developer Implementation Update
+
+Product: MarketZed — Zambia Marketplace
+Brand: Tech Generative Universe (TechGU)
+Platform: Native Android — Kotlin + Jetpack Compose
+Document purpose: Extend and improve the existing MarketZed application.
+
+---
+
+1. IMPLEMENTATION INSTRUCTIONS
+
+Implement all approved features and improvements in the existing MarketZed Android application.
+
+This is an enhancement of the existing application, not a replacement.
+
+NON-NEGOTIABLE REQUIREMENTS:
+
+- Preserve existing working functionality and integrations.
+- Inspect the existing codebase before implementation.
+- Preserve existing Firestore schemas wherever possible.
+- Do not introduce incompatible authentication or database systems.
+- Maintain the existing MarketZed identity and design direction.
+- Build an original, professional, accessible marketplace UI.
+- Support both light and dark themes.
+- Prioritize fast loading, efficient queries and smooth navigation.
+- Do not introduce fake listings, fake payment success or invented analytics.
+- Do not introduce Gemini AI for this release.
+- Do not introduce Google authentication for this release.
+- Use email/password authentication through the existing Firebase Authentication system.
+- Continue using the existing payment provider and trusted payment confirmation architecture.
+
+2. MARKETPLACE PRIORITIES
+
+MarketZed is primarily a product discovery and contact marketplace.
+
+The homepage and Explore experience must prioritize:
+
+1. Products.
+2. Rental properties.
+3. Services.
+4. Swaps.
+5. Wanted requests.
+6. Jobs.
+
+Products and rental properties are the most important discovery categories.
+
+Jobs and Wanted requests must not displace the primary marketplace experience.
+
+PROPERTY RESTRICTIONS:
+
+- Rental properties only.
+- Houses, apartments, rooms, shops, offices and commercial premises for rent.
+- Absolutely no land or plot listings.
+- No property sales.
+- Enforce restrictions in UI, validation, repositories, queries and Firestore security rules.
+
+3. REDESIGNED HOMEPAGE
+
+Create an engaging, professional and dynamic marketplace homepage.
+
+The homepage should make discovering products and finding rental properties easy.
+
+Suggested section hierarchy:
+
+1. Header and account access.
+2. Search.
+3. Location discovery.
+4. Browse categories.
+5. Main Sponsored carousel.
+6. Sponsored products.
+7. Recommended products.
+8. Recently added products.
+9. Popular product categories.
+10. Rental properties.
+11. Sponsored rental properties.
+12. Swaps.
+13. Services.
+14. Wanted requests.
+15. Latest jobs.
+
+Sections must appear only when they have relevant content, except category navigation, which should always remain accessible.
+
+Do not force every section to appear when empty.
+
+The homepage must remain visually balanced and avoid excessive scrolling caused by unnecessary empty sections.
+
+4. SPONSORED MARKETPLACE SYSTEM
+
+Sponsored listings must become a major and attractive part of MarketZed.
+
+The purpose is to make promoted products highly visible while encouraging sellers and businesses to advertise on MarketZed.
+
+Sponsored placements must be visually distinct from organic listings.
+
+4.1 Sponsored placements
+
+Support:
+
+- Homepage sponsored banners.
+- Homepage sponsored product carousel.
+- Sponsored products within Explore.
+- Sponsored placements within individual categories.
+- Sponsored rental properties.
+- Sponsored services.
+- Sponsored listings within relevant search results.
+- Sponsored placements within category feeds.
+- Dedicated Sponsored Deals discovery section.
+
+Every sponsored placement must have a clearly visible Sponsored label.
+
+Never label organic listings as Sponsored.
+
+4.2 Flexible 1:3:1 carousel
+
+Implement a flexible carousel inspired by Flutter-style flex carousel layouts.
+
+The layout must use:
+
+[1] [3] [1]
+
+The centre card must be approximately three times the flex width of each neighbouring card.
+
+Requirements:
+
+- Left neighbouring card partially visible.
+- Large centre card.
+- Right neighbouring card partially visible.
+- Rounded corners.
+- Consistent spacing.
+- Smooth horizontal scrolling.
+- Attractive image presentation.
+- Clear product title and price.
+- Visible Sponsored badge.
+- Pagination indicators.
+- Tap to open the actual listing.
+- Support dark and light themes.
+- Handle slow and missing images.
+- Respect reduced-motion settings.
+
+The carousel must not create unnecessary layout shifts.
+
+Use native Jetpack Compose components and custom layout logic. Do not introduce Flutter or Dart into the existing Kotlin-only Android application.
+
+Do not use automatic rapid rotation. Manual swipe should be the primary interaction.
+
+4.3 Sponsored category placements
+
+Every relevant category must support sponsored content.
+
+Examples:
+
+ELECTRONICS:
+
+- Sponsored phones.
+- Sponsored laptops.
+- Sponsored televisions.
+- Other relevant electronics.
+
+FASHION:
+
+- Sponsored clothing.
+- Sponsored shoes.
+- Sponsored accessories.
+
+HOME AND LIVING:
+
+- Sponsored furniture.
+- Sponsored appliances.
+- Other relevant home products.
+
+PROPERTY RENTALS:
+
+- Sponsored houses.
+- Sponsored apartments.
+- Sponsored rooms.
+- Sponsored commercial premises.
+
+SERVICES:
+
+- Sponsored service providers.
+
+SWAPS:
+
+- Sponsored exchange listings.
+
+Sponsored listings should receive priority at the beginning of relevant category results.
+
+The ranking must consider:
+
+- Active campaign status.
+- Payment confirmation.
+- Campaign start and end dates.
+- Category relevance.
+- Listing availability.
+- Fair rotation among eligible campaigns.
+
+Do not repeatedly display the same sponsored listing unnecessarily.
+
+4.4 Sponsored banners
+
+Support multiple advertising formats:
+
+1. Large promotional banners.
+2. Flexible 1:3:1 sponsored carousel.
+3. Compact sponsored strips.
+4. Category-specific advertising banners.
+5. Homepage promotional banners.
+
+Banners must be responsive, visually attractive and consistent with the MarketZed design system.
+
+Admin users should control campaign placement, creative assets, schedules and campaign status.
+
+4.5 Sponsored Deals
+
+Create a dedicated Sponsored Deals section.
+
+This section allows users to discover promoted products and genuine special offers.
+
+Important distinction:
+
+A sponsored product is not automatically discounted.
+
+Only show discount labels when the original and current prices are supported by genuine listing data.
+
+5. PROMOTE YOUR PRODUCTS AND BUSINESS
+
+Make advertising attractive and easy to understand.
+
+Create a dedicated Promote Your Business experience.
+
+Include:
+
+- Product promotion.
+- Rental property promotion.
+- Service promotion.
+- Homepage promotion.
+- Category-specific promotion.
+- Sponsored carousel placement.
+- Banner advertising.
+
+Users should understand what they are paying for before initiating payment.
+
+Show:
+
+- Promotion name.
+- Duration.
+- Price in ZMW.
+- Placement description.
+- Benefits.
+- Eligible listing.
+- Selected campaign.
+- Payment method.
+- Campaign status.
+
+5.1 Promotion payment
+
+Use the existing trusted payment provider.
+
+Requirements:
+
+- Never activate a campaign on button tap alone.
+- Verify payment through trusted backend confirmation.
+- Show pending payment.
+- Show confirmed payment.
+- Show failed payment.
+- Allow safe retries.
+- Prevent duplicate payments.
+- Keep payment records.
+- Show campaign start and end dates.
+
+5.2 Promotion history
+
+Create a polished promotion history screen.
+
+Display:
+
+- Listing title.
+- Campaign type.
+- Payment amount.
+- Duration.
+- Start date.
+- End date.
+- Current status.
+
+Do not use raw Firestore document IDs as the primary display titles.
+
+5.3 Promotion analytics
+
+Seller-facing analytics should remain simple.
+
+Basic analytics must include:
+
+- Impressions.
+- Clicks.
+- Listing visits.
+
+All analytics must be based on actual recorded events.
+
+Do not display invented performance numbers.
+
+Admin users should have the appropriate campaign management and reporting controls.
+
+5.4 Sponsored promotional bonuses
+
+Provide an extensible promotional bonus system.
+
+The exact bonus feature and business rules remain subject to separate approval.
+
+Do not invent a bonus type, discount, free advertising duration or financial entitlement without approval.
+
+The architecture should allow future administrator-controlled promotional incentives without requiring a complete redesign.
+
+6. PRODUCT COMPARISON SYSTEM
+
+Introduce a complete product comparison experience.
+
+Users must be able to compare up to THREE products at a time.
+
+Products may come from different sellers.
+
+Comparison should help users make informed purchasing decisions.
+
+6.1 Compare selection
+
+Add a Compare control to eligible product cards and product detail screens.
+
+Users can:
+
+- Add a product.
+- Remove a product.
+- Select up to three products.
+- View the selected product count.
+- Open the comparison interface.
+- Clear their comparison.
+
+Prevent duplicate selection of the same listing.
+
+Provide a persistent but unobtrusive comparison indicator when products have been selected.
+
+When the third product is selected, prevent adding a fourth and explain the limit.
+
+6.2 Quick comparison bottom sheet
+
+Implement a beautiful native Compose ModalBottomSheet.
+
+The bottom sheet should:
+
+- Show selected products.
+- Display product images.
+- Display titles and prices.
+- Display condition and location.
+- Support two or three products.
+- Allow removing products.
+- Allow adding another product when space remains.
+- Provide an Expand Comparison action.
+- Provide View Listing actions.
+
+The bottom sheet must support scrolling and small Android screens.
+
+6.3 Full comparison screen
+
+Create a dedicated comparison screen for detailed comparisons.
+
+The screen should include:
+
+- Product image.
+- Product title.
+- Current listed price.
+- Seller.
+- Location.
+- Product condition.
+- Category.
+- Available specifications.
+- Product description where useful.
+- Listing date.
+- Availability status where supported.
+
+Use horizontally scrollable comparison columns on narrow screens.
+
+Use consistent attribute rows so buyers can compare information easily.
+
+6.4 Highlight differences
+
+Provide a Show Differences control.
+
+When enabled, emphasize attributes that differ between selected products.
+
+Provide a Show All control to restore every comparison row.
+
+6.5 Product specifications
+
+Support structured product attributes where applicable.
+
+Examples:
+
+SMARTPHONES:
+
+- Brand.
+- Model.
+- RAM.
+- Storage.
+- Battery information.
+- Condition.
+
+LAPTOPS:
+
+- Brand.
+- Processor.
+- RAM.
+- Storage.
+- Screen size.
+- Condition.
+
+TELEVISIONS:
+
+- Brand.
+- Screen size.
+- Resolution.
+- Smart TV status.
+- Condition.
+
+FURNITURE:
+
+- Type.
+- Material.
+- Dimensions.
+- Condition.
+
+The specification structure should be category-aware and extensible.
+
+Do not invent missing specifications.
+
+Show "Not provided" where information is unavailable.
+
+6.6 Comparison actions
+
+Allow users to:
+
+- Open individual listings.
+- Contact the seller.
+- Share the comparison.
+- Remove products.
+- Clear the comparison.
+- Return to browsing.
+
+6.7 Comparison performance
+
+Use a ViewModel to maintain selection state.
+
+Avoid fetching entire product collections for comparisons.
+
+Fetch only the required product information.
+
+Use local caching where appropriate.
+
+Handle deleted, expired or unavailable listings gracefully.
+
+7. LISTING CARD REDESIGN
+
+Different listing categories must use appropriate card layouts.
+
+Do not force all categories into the same product card design.
+
+7.1 Wanted requests — TEXT ONLY
+
+Wanted requests must NOT display listing photographs.
+
+Use a full-width single-column card.
+
+Visual hierarchy:
+
+[Full-width card]
+
+[Request title]
+
+[Request description]
+
+[Location] [Budget] [Relevant attributes]
+
+[Profile picture] [Name] [Verification badge]
+
+[Posting time]
+
+[Contact action] [Report action]
+
+Example:
+
+Looking for a 2-bedroom house
+
+Looking for a spacious house around Kitwe. Open to nearby areas. My budget is K6,000 per month.
+
+Kitwe | K6,000 | 2 bedrooms | House
+
+Profile picture | Chibwe A | Verified
+
+4 hours ago
+
+Contact
+
+Requirements:
+
+- No listing image.
+- Clear title.
+- Readable description.
+- Relevant request information.
+- User profile picture.
+- Seller/requester name.
+- Verification badge where genuinely verified.
+- Posting time.
+- Accessible contact action.
+- Report listing action.
+
+7.2 Job cards — IMAGE INCLUDED
+
+Jobs must use full-width single-column cards.
+
+Visual hierarchy:
+
+[Full-width job image]
+
+[Job title]
+
+[Employment information]
+
+[Location] [Salary where provided] [Employment type]
+
+[Short description]
+
+[Profile picture] [Employer name] [Verification badge]
+
+[Posting time]
+
+[Contact action] [Report action]
+
+Handle missing images gracefully.
+
+7.3 Service cards — IMAGE INCLUDED
+
+Services must use full-width single-column cards.
+
+Visual hierarchy:
+
+[Full-width service image]
+
+[Service title]
+
+[Service description]
+
+[Location] [Service category] [Price where available]
+
+[Profile picture] [Provider name] [Verification badge]
+
+[Posting time]
+
+[Contact action] [Report action]
+
+All cards must use consistent spacing, typography, border treatments and interaction states.
+
+8. EMPTY STATES AND CONDITIONAL SECTIONS
+
+Implement one consistent intelligent empty-state system.
+
+HOME:
+
+- Hide individual sections when they have no eligible listings.
+- Do not display multiple unnecessary empty-state cards.
+- Always retain category navigation.
+- If the entire marketplace has no available content, show one attractive homepage empty state.
+
+EXPLORE:
+
+- Show relevant results.
+- If there are no results, show one clear empty state.
+- Provide a clear filters action.
+
+CATEGORY PAGES:
+
+- Always display category identity and navigation.
+- Show relevant content when available.
+- Show a category-specific empty state when there are no listings.
+
+MY LISTINGS:
+
+- Show an appropriate empty state when the user has no listings.
+- Provide a Post Listing action.
+
+SAVED LISTINGS:
+
+- Show a useful empty state when there are no saved listings.
+
+PROMOTIONS:
+
+- Show an appropriate state when there are no active campaigns.
+
+Never leave large blank sections or broken layouts.
+
+9. MARKETPLACE DISCOVERY AND ENGAGEMENT
+
+Introduce the following improvements:
+
+9.1 Recently viewed
+
+Allow users to return to previously viewed listings.
+
+Store appropriate listing references and display them in a dedicated section.
+
+Provide a way to clear browsing history.
+
+9.2 Recently added
+
+Create a section for newly published listings.
+
+Sort using trusted publication timestamps.
+
+9.3 Similar products
+
+Show relevant alternatives on product detail screens.
+
+Use actual category and product attributes.
+
+9.4 Price reduced
+
+Create a section showing listings with genuine recorded price reductions.
+
+Do not confuse ordinary price updates with verified discounts.
+
+9.5 Saved searches
+
+Allow users to save useful search criteria.
+
+Notify users when matching listings become available, subject to notification preferences.
+
+9.6 Product favourites
+
+Maintain the existing favourites functionality.
+
+Ensure saved items are synchronized appropriately and remain private to the correct account.
+
+10. SELLER EXPERIENCE
+
+Improve the seller experience.
+
+Support:
+
+- Personal seller profiles.
+- Business seller profiles.
+- Public seller storefronts.
+- Seller profile photographs.
+- Seller descriptions.
+- Seller listings.
+- Verification status.
+- Member-since information.
+- Seller listing management.
+
+Show verification badges only after actual verification.
+
+Seller storefronts should have:
+
+- Profile header.
+- Business or personal name.
+- Verification status.
+- Description.
+- Published listings.
+- Relevant categories.
+- Contact action.
+
+Keep the experience simple for individuals and small businesses.
+
+11. MAP-BASED DISCOVERY
+
+Provide a foundation for geographical discovery.
+
+Users should be able to browse relevant products, services and rental properties by location.
+
+Potential functionality:
+
+- Town filtering.
+- District filtering.
+- Nearby discovery.
+- Map/list switching.
+- Location-based searches.
+
+Use privacy-conscious location presentation.
+
+Do not publicly expose precise residential coordinates without an explicit approved reason.
+
+12. SEARCH AND FILTER IMPROVEMENTS
+
+Improve the marketplace search experience.
+
+Requirements:
+
+- Fast search.
+- Debounced typing.
+- Search suggestions.
+- Category filtering.
+- Location filtering.
+- Minimum price.
+- Maximum price.
+- Condition filtering.
+- Relevant attributes.
+- Clear filters.
+- Search-state restoration.
+
+Budget filtering must correctly support minimum-only, maximum-only and combined ranges.
+
+Handle commas, decimals and ZMW values safely.
+
+Do not download the entire Firestore collection to filter results locally.
+
+13. HOME AND EXPLORE NAVIGATION
+
+Retain the approved bottom navigation:
+
+- Home.
+- Explore.
+- Post.
+- Wanted.
+- Account.
+
+Saved listings and favourites should remain accessible from Account.
+
+Messaging must remain accessible through appropriate listing and account actions without introducing an additional bottom-navigation tab unless separately approved.
+
+Keep navigation simple and consistent.
+
+14. DESIGN SYSTEM AND ACCESSIBILITY
+
+Create an original MarketZed design language.
+
+The application must be suitable for:
+
+- Young users.
+- Older users.
+- First-time smartphone users.
+- Individual sellers.
+- Professional businesses.
+
+Design requirements:
+
+- Clear typography.
+- Comfortable text sizes.
+- Accessible contrast.
+- Consistent spacing.
+- Consistent rounded corners.
+- Restrained shadows.
+- Clear visual hierarchy.
+- Recognizable Lucide icons.
+- Comfortable touch targets.
+- Smooth scrolling.
+- Professional light mode.
+- Professional dark mode.
+
+Avoid complicated interfaces, excessive animation and unnecessary decorative elements.
+
+Keep the existing approved MarketZed orange branding.
+
+The white brand icon on orange must remain consistent in both themes.
+
+Create reusable Compose components for:
+
+- Listing cards.
+- Sponsored cards.
+- Product carousels.
+- Search fields.
+- Filters.
+- Buttons.
+- Inputs.
+- Bottom sheets.
+- Dialogs.
+- Empty states.
+- Loading states.
+- Profile avatars.
+- Verification badges.
+
+15. PAYMENT AND PROMOTION UI
+
+Redesign payment screens to match the new MarketZed design system.
+
+The experience must be simple and understandable.
+
+Include:
+
+- Clear payment amount.
+- Clear payment purpose.
+- Selected promotion.
+- Duration.
+- Payment method.
+- Payer details.
+- Confirmation before initiation.
+- Waiting state.
+- Success state.
+- Failure state.
+- Retry action.
+- Payment history.
+
+Never treat a client-side button press as successful payment.
+
+Use trusted payment confirmation.
+
+Maintain immutable payment records for completed transactions.
+
+16. PERFORMANCE AND PARALLEL LOADING
+
+Performance is a core product requirement.
+
+The homepage must not wait for every section before displaying content.
+
+Use independent concurrent loading.
+
+Suggested loading groups:
+
+- Categories.
+- Sponsored campaigns.
+- Products.
+- Rental properties.
+- Swaps.
+- Services.
+- Wanted requests.
+- Jobs.
+
+Each section should render when its own data becomes available.
+
+Keep the intended homepage section order even when requests complete in a different order.
+
+Use:
+
+- Kotlin coroutines.
+- Structured concurrency.
+- StateFlow.
+- Jetpack Compose.
+- ViewModels.
+- Room where appropriate.
+- DataStore for preferences.
+- Firestore pagination.
+- Bounded queries.
+- Stable LazyColumn and LazyRow keys.
+- Image caching.
+- Background refresh.
+- Request cancellation.
+- Query deduplication.
+
+Display valid cached content immediately.
+
+Refresh stale content without replacing the entire screen with a loading spinner.
+
+Use skeletons matching the actual card layouts.
+
+Avoid unnecessary Firestore reads and expensive recomposition.
+
+Test on low-end and mid-range Android devices.
+
+17. NOTIFICATIONS
+
+Preserve and improve the notification system.
+
+Support:
+
+- Listing updates.
+- Wanted request updates.
+- Promotion status.
+- Promotion expiry reminders.
+- Listing expiry reminders.
+- Saved-search matches.
+- Relevant account notifications.
+
+Use Firebase Cloud Messaging for remote notifications where appropriate.
+
+Use WorkManager for deferrable scheduled reminders.
+
+Provide notification preferences and opt-out controls.
+
+Do not send promotional notifications without appropriate consent.
+
+18. AUTHENTICATION
+
+For this release:
+
+- Email/password authentication only.
+- No Google sign-in.
+- Existing Firebase Authentication.
+- Password reset.
+- Secure session persistence.
+- Email verification where required.
+- Secure account linking where supported.
+- Server/rules-based role enforcement.
+
+Do not create a duplicate authentication architecture.
+
+19. AI SCOPE
+
+Gemini AI is excluded from this release.
+
+Do not implement Gemini assistant functionality, Gemini-generated recommendations or Gemini-powered notifications.
+
+Keep the architecture extensible for possible future AI functionality, but do not add unnecessary AI dependencies now.
+
+20. ADMIN AND MODERATION
+
+Improve the administration experience to support:
+
+- Sponsored campaign management.
+- Banner management.
+- Promotion plans.
+- Campaign scheduling.
+- Campaign approval.
+- Payment verification.
+- Campaign activation and expiry.
+- Listing moderation.
+- Verification management.
+- Reported listings.
+- Seller management.
+- Promotional bonus configuration, subject to approved business rules.
+
+Ensure administrative permissions are enforced securely.
+
+Never rely on client-side role hiding alone.
+
+21. SECURITY AND DATA INTEGRITY
+
+Preserve the existing Firebase project and data architecture.
+
+Requirements:
+
+- Firestore Security Rules.
+- Trusted payment verification.
+- Secure account sessions.
+- Private user data protection.
+- Safe cache separation.
+- Input validation.
+- Bounded public queries.
+- Rate limiting where supported.
+- Duplicate campaign prevention.
+- Accurate campaign status.
+- Accurate listing availability.
+- No secrets embedded in the APK.
+
+Do not expose private service credentials.
+
+Do not introduce fake production listings or demo records into genuine marketplace data.
+
+22. TESTING AND ACCEPTANCE CHECKLIST
+
+The implementation is not complete until the following have been tested.
+
+HOMEPAGE:
+
+- [ ] Engaging marketplace-first homepage.
+- [ ] Products receive highest discovery priority.
+- [ ] Rental properties receive high priority.
+- [ ] Services and swaps receive appropriate visibility.
+- [ ] Jobs remain secondary.
+- [ ] Independent parallel section loading.
+- [ ] Intelligent empty-state handling.
+- [ ] No unnecessary blank sections.
+
+SPONSORED:
+
+- [ ] Homepage sponsored banners.
+- [ ] Flexible 1:3:1 carousel.
+- [ ] Sponsored products in Explore.
+- [ ] Sponsored placements in relevant categories.
+- [ ] Sponsored rental properties.
+- [ ] Sponsored services.
+- [ ] Sponsored Deals section.
+- [ ] Sponsored labels are accurate.
+- [ ] Campaign payment confirmation.
+- [ ] Campaign scheduling and expiry.
+- [ ] Fair sponsored rotation.
+- [ ] Basic analytics use actual data.
+- [ ] Promotion history works.
+
+COMPARISON:
+
+- [ ] Compare up to three products.
+- [ ] Prevent selection of a fourth.
+- [ ] Remove selected products.
+- [ ] Quick comparison bottom sheet.
+- [ ] Full comparison screen.
+- [ ] Horizontal scrolling.
+- [ ] Show Differences.
+- [ ] Show All.
+- [ ] Missing specifications handled correctly.
+- [ ] Open original listings.
+- [ ] Share comparison.
+- [ ] Handle deleted or expired listings.
+
+LISTING CARDS:
+
+- [ ] Wanted cards have no listing image.
+- [ ] Wanted cards are full width.
+- [ ] Job cards include images.
+- [ ] Service cards include images.
+- [ ] Jobs and services are full width.
+- [ ] Profile picture and name display correctly.
+- [ ] Genuine verification badges display correctly.
+- [ ] Posting time is accurate.
+- [ ] Contact and report actions work.
+
+SELLER EXPERIENCE:
+
+- [ ] Public seller profiles.
+- [ ] Business storefronts.
+- [ ] Seller listings.
+- [ ] Verification status.
+- [ ] Contact actions.
+
+PERFORMANCE:
+
+- [ ] Cache-first loading.
+- [ ] Independent parallel fetching.
+- [ ] No unnecessary full-screen loading.
+- [ ] Efficient Firestore queries.
+- [ ] Stable scrolling.
+- [ ] Image caching.
+- [ ] No duplicate queries.
+- [ ] Offline browsing.
+- [ ] No unnecessary recomposition.
+
+DESIGN:
+
+- [ ] Consistent light mode.
+- [ ] Consistent dark mode.
+- [ ] Accessible typography.
+- [ ] Accessible touch targets.
+- [ ] Consistent headers.
+- [ ] Consistent card designs.
+- [ ] Responsive bottom sheets.
+- [ ] Original MarketZed UI.
+
+SECURITY:
+
+- [ ] No client-side payment success.
+- [ ] No unauthorized admin access.
+- [ ] No cross-account private cache leakage.
+- [ ] No exposed API secrets.
+- [ ] Property restrictions enforced.
+
+23. REQUIRED DELIVERY
+
+Deliver:
+
+1. Updated complete Android source project.
+2. Successful clean release build.
+3. APK.
+4. AAB where requested.
+5. Updated dependencies documentation.
+6. Firestore rules and index changes.
+7. Database migration notes.
+8. Payment integration changes.
+9. Promotion and sponsored campaign implementation notes.
+10. Product comparison implementation notes.
+11. Testing report.
+12. Screenshots of the updated application.
+13. List of changed files and modules.
+14. Known limitations.
+15. External configuration still required.
+
+FINAL ENGINEERING REQUIREMENT
+
+Do not sacrifice existing functionality to introduce new features.
+
+Do not replace working integrations with mock implementations.
+
+Do not claim production readiness based only on a successful compile.
+
+Test actual authentication, Firestore queries, payment confirmation, campaign activation, comparison functionality, offline browsing, navigation and accessibility.
+
+The final MarketZed application must be fast, attractive, reliable, accessible and easy to use for people of all ages.
+
+The central product vision:
+
+MAKE MARKETZED THE MOST ENJOYABLE AND ACCESSIBLE PLACE TO DISCOVER, COMPARE, PROMOTE AND FIND PRODUCTS AND RENTAL PROPERTIES IN ZAMBIA.

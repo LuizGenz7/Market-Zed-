@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MarketZed</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_post">Post</string>
+    <string name="nav_wanted">Wanted</string>
+    <string name="nav_saved">Saved</string>
+    <string name="nav_account">Account</string>
+    <string name="offline_banner_label">Offline mode — showing cached marketplace data</string>
+    <string name="stale_cache_label">Cached snapshot — pull to refresh when online</string>
+    <string name="data_saver_label">Data Saver</string>
+    <string name="techgu_attribution">App by Tech Generative Universe (TechGU)</string>
+    <string name="search_one_keyword_hint">Search currently works best with one keyword. Try a shorter search.</string>
+    <string name="ownership_declaration_version">2026-11-16-v1</string>
+    <string name="ownership_declaration_text">I confirm that I am the lawful owner of this item, property, or service, or that I have lawful authority to publish this listing on MarketZed. All details and photos I have provided are accurate and comply with Zambian law and MarketZed Terms.</string>
+</resources>
